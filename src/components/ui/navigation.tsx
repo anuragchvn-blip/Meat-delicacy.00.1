@@ -12,10 +12,20 @@ export function Navigation() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { user, logout } = useAuth();
-  const { getTotalItems } = useCart();
+  const { getTotalItems, cartItems } = useCart();
   const navigate = useNavigate();
 
   const cartCount = getTotalItems();
+
+  // Debug log cart state
+  React.useEffect(() => {
+    console.log(
+      "Navigation - Cart count:",
+      cartCount,
+      "Cart items:",
+      cartItems,
+    );
+  }, [cartCount, cartItems]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-secondary/95 backdrop-blur-md border-b border-white/10">
