@@ -153,10 +153,10 @@ export function HeroForm({ className }: HeroFormProps) {
           </div>
 
           {/* Order Button */}
-          <div>
+          <div className="flex items-end">
             <Button
               type="submit"
-              className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-3 hover:bg-brand-cream-dark transition-all duration-300 capitalize"
+              className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-3 hover:bg-brand-cream-dark transition-all duration-300 w-full h-11"
               disabled={!isWithinDeliveryRadius}
             >
               Order Now
