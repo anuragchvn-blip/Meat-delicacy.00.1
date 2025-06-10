@@ -8,7 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [cartCount] = useState(0);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+  const { user, logout } = useAuth();
+  const { getTotalItems } = useCart();
+  const navigate = useNavigate();
+
+  const cartCount = getTotalItems();
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-secondary/95 backdrop-blur-md border-b border-white/10">
