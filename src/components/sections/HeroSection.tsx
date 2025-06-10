@@ -120,31 +120,32 @@ export const HeroSection = () => {
 
   return (
     <section className="relative bg-[#262729] min-h-[650px]">
-      {/* Background Image with Gradient Overlay */}
+      {/* Background Image with Linear Gradient Overlay */}
       <div className="absolute inset-0">
         <img
           src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
           alt="banner figure"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#262626] via-[#262626]/50 to-transparent" />
+        {/* Linear gradient overlay to match original design */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#262626] from-[11.35%] via-[#262626] via-[50.75%] to-transparent to-[101%]"></div>
       </div>
 
       {/* Content Container */}
       <div className="relative z-10 flex items-center min-h-[650px]">
-        <div className="max-w-7xl mx-auto px-3 w-full">
+        <div className="max-w-[1232px] mx-auto px-3 w-full">
           <div className="flex flex-wrap -mx-3">
-            {/* Left Content */}
-            <div className="w-full lg:w-7/12 px-3 ml-auto">
+            {/* Content positioned to the right, taking up about 58% width */}
+            <div className="w-full lg:w-7/12 px-3 ml-auto flex items-center min-h-[650px]">
               <div className="text-center relative z-10">
-                {/* Main Heading */}
+                {/* Subtitle */}
                 <h1 className="text-[rgba(248,227,201,0.5)] font-oswald text-2xl font-medium uppercase mb-2 leading-9">
                   Delivered at your door step
                 </h1>
 
-                {/* Large Title with Gradient Text */}
+                {/* Main heading with gradient text */}
                 <h2
-                  className="font-oswald text-[130px] font-bold uppercase leading-[146px] text-center"
+                  className="font-oswald text-[130px] font-bold uppercase leading-[146px] text-center mb-0"
                   style={{
                     background:
                       "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
@@ -156,7 +157,7 @@ export const HeroSection = () => {
                   Fresh pork
                 </h2>
 
-                {/* Meat Banner Image Overlay */}
+                {/* Meat Banner Image Overlay - positioned over text */}
                 <div className="w-[440px] mx-auto -mt-[92.8px] relative">
                   <img
                     src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
@@ -168,7 +169,7 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Order Form */}
+          {/* Order Form positioned at bottom */}
           <div className="flex flex-wrap -mx-3">
             <form
               onSubmit={(e) => {
@@ -177,6 +178,7 @@ export const HeroSection = () => {
               }}
               className="w-full px-3"
             >
+              {/* Form container with 91.67% width and auto left margin */}
               <div className="w-11/12 ml-auto">
                 <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10">
                   {/* Delivery Info Banner */}
@@ -186,6 +188,7 @@ export const HeroSection = () => {
                     </p>
                   </div>
 
+                  {/* Form Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
                     {/* Product Selection */}
                     <div>
@@ -197,7 +200,7 @@ export const HeroSection = () => {
                         value={selectedProduct}
                         onValueChange={setSelectedProduct}
                       >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
                           <SelectValue>
                             <span className="text-[rgba(248,227,201,0.4)] font-medium">
                               {selectedProduct
@@ -238,7 +241,7 @@ export const HeroSection = () => {
                         value={selectedQuantity}
                         onValueChange={setSelectedQuantity}
                       >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
                           <SelectValue>
                             <span className="text-[rgba(248,227,201,0.4)] font-medium">
                               {selectedQuantity
@@ -269,7 +272,7 @@ export const HeroSection = () => {
                         value={selectedTimeSlot}
                         onValueChange={setSelectedTimeSlot}
                       >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
                           <SelectValue>
                             <span className="text-[rgba(248,227,201,0.4)] font-medium">
                               {selectedTimeSlot || "Pick time slot"}
