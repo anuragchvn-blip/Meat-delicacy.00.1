@@ -14,7 +14,6 @@ import { Product } from "../data/products";
 import { Minus, Plus } from "lucide-react";
 import { Navigation } from "../components/ui/navigation";
 import { Footer } from "../components/ui/Footer";
-import { CartDebugTest } from "../components/ui/CartDebugTest";
 
 const ProductDetail = () => {
   const { productId } = useParams();
@@ -25,7 +24,6 @@ const ProductDetail = () => {
   const [selectedCubeSize, setSelectedCubeSize] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [currentPrice, setCurrentPrice] = useState(0);
   const [showError, setShowError] = useState(false);
 
   // Find product by ID
@@ -33,9 +31,6 @@ const ProductDetail = () => {
     const allProducts = productCategories.flatMap((cat) => cat.products);
     const foundProduct = allProducts.find((p) => p.id.toString() === productId);
     setProduct(foundProduct || null);
-    if (foundProduct) {
-      setCurrentPrice(foundProduct.price);
-    }
   }, [productId]);
 
   // Hide error when selections are made
@@ -76,7 +71,10 @@ const ProductDetail = () => {
 
     if (product) {
       addToCart(product, quantity, selectedQuantity);
-      alert(`${product.name} added to cart successfully!`);
+      // Show success message
+      alert(
+        `${product.name} (${selectedQuantity}) added to cart successfully! Quantity: ${quantity}`,
+      );
     }
   };
 
@@ -104,7 +102,7 @@ const ProductDetail = () => {
                 <li className="text-white/60">
                   <button
                     onClick={() => navigate("/")}
-                    className="hover:text-brand-cream transition-colors cursor-pointer"
+                    className="hover:text-[#F8E3C9] transition-colors cursor-pointer"
                   >
                     Home
                   </button>
@@ -113,13 +111,13 @@ const ProductDetail = () => {
                 <li className="text-white/60">
                   <button
                     onClick={() => navigate("/")}
-                    className="hover:text-brand-cream transition-colors cursor-pointer"
+                    className="hover:text-[#F8E3C9] transition-colors cursor-pointer"
                   >
                     Our products
                   </button>
                 </li>
                 <li className="px-2 text-white/60">/</li>
-                <li className="text-brand-cream font-bold" aria-current="page">
+                <li className="text-[#F8E3C9] font-bold" aria-current="page">
                   {product.name}
                 </li>
               </ol>
@@ -155,21 +153,27 @@ const ProductDetail = () => {
               <div className="w-full lg:w-7/12 px-3 lg:px-8 flex flex-col gap-6">
                 <div className="flex flex-col gap-4">
                   {/* Category Badge */}
-                  <div className="bg-[#C72C41] text-white font-oswald text-xs font-bold tracking-wider uppercase py-2 px-4 relative clip-path-arrow inline-block w-fit">
+                  <div className="bg-[#C72C41] text-white font-oswald text-xs font-bold tracking-wider uppercase py-2 px-4 relative inline-block w-fit">
                     {productCategories.find((cat) =>
                       cat.products.some((p) => p.id === product.id),
                     )?.name || "Pork Special Cuts"}
                   </div>
 
                   {/* Product Name */}
-                  <h1 className="text-brand-cream text-4xl font-bold leading-11">
+                  <h1 className="text-[#F8E3C9] text-4xl font-bold leading-11">
                     {product.name}
                   </h1>
 
                   {/* Description */}
                   <p className="text-[#767A7A] leading-5">
-                    {product.description ||
-                      "Our premium quality meat product, carefully selected and processed to ensure the best taste and nutrition. Perfect for various cooking methods and recipes."}
+                    Our Pork Trotters are a treasure trove of flavor and
+                    nutrition. Packed with collagen and essential nutrients,
+                    they're a popular choice for making hearty soups and stews.
+                    When cooked slowly, they release a rich, gelatinous broth
+                    that's perfect for adding depth to your recipes. Whether
+                    you're preparing a traditional bone broth or a comforting
+                    stew, our Pork Trotters ensure every spoonful is both
+                    nutritious and delicious.
                   </p>
                 </div>
 
@@ -247,7 +251,7 @@ const ProductDetail = () => {
                   {/* Pricing - Now Visible */}
                   <div className="block mt-6">
                     <div className="flex items-center gap-2 font-bold">
-                      <span className="text-brand-cream text-3xl font-bold leading-8">
+                      <span className="text-[#F8E3C9] text-3xl font-bold leading-8">
                         ₹{product.discountPrice || product.price}/-
                       </span>
                       {product.discountPrice && (
@@ -274,7 +278,7 @@ const ProductDetail = () => {
                   <div className="flex gap-3 mt-6">
                     <Button
                       onClick={handleAddToCart}
-                      className="bg-brand-cream text-[#303132] font-bold uppercase hover:bg-brand-cream/90 transition-all duration-300 px-18 py-4 w-full"
+                      className="bg-[#F8E3C9] text-[#303132] font-bold uppercase hover:bg-[#F8E3C9]/90 transition-all duration-300 px-18 py-4 w-full"
                     >
                       Add to Cart
                     </Button>
@@ -291,7 +295,7 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-brand-cream text-sm font-bold">
+                      <span className="text-[#F8E3C9] text-sm font-bold">
                         Cooking time
                       </span>
                       <span className="text-[#A8A9A9] text-xs font-medium">
@@ -308,7 +312,7 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-brand-cream text-sm font-bold">
+                      <span className="text-[#F8E3C9] text-sm font-bold">
                         Shelf life
                       </span>
                       <span className="text-[#A8A9A9] text-xs font-medium">
@@ -325,7 +329,7 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-brand-cream text-sm font-bold">
+                      <span className="text-[#F8E3C9] text-sm font-bold">
                         Weight
                       </span>
                       <span className="text-[#A8A9A9] text-xs font-medium">
@@ -342,7 +346,7 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-brand-cream text-sm font-bold">
+                      <span className="text-[#F8E3C9] text-sm font-bold">
                         Storage
                       </span>
                       <span className="text-[#A8A9A9] text-xs font-medium">
@@ -359,7 +363,7 @@ const ProductDetail = () => {
                       />
                     </div>
                     <div className="flex flex-col">
-                      <span className="text-brand-cream text-sm font-bold">
+                      <span className="text-[#F8E3C9] text-sm font-bold">
                         Allergy info
                       </span>
                       <span className="text-[#A8A9A9] text-xs font-medium">
@@ -374,7 +378,6 @@ const ProductDetail = () => {
         </section>
       </main>
       <Footer />
-      <CartDebugTest />
     </div>
   );
 };
