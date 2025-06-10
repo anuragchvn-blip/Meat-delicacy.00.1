@@ -1,9 +1,12 @@
 export interface Product {
-  id: string;
+  id: number;
   name: string;
   category: string;
   price: number;
+  discountPrice?: number;
   originalPrice?: number;
+  prices?: { [key: string]: number };
+  discountPrices?: { [key: string]: number };
   weight: string;
   description: string;
   image: string;
