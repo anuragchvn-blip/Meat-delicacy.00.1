@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../contexts/CartContext";
 import { useLocation } from "../../hooks/useLocation";
 import { productCategories } from "../../data/products";
 import { Search, Package, Clock } from "lucide-react";
