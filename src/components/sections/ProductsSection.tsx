@@ -49,14 +49,8 @@ export const ProductsSection = () => {
 
   const handleAddToCart = (product: Product) => {
     console.log("ProductsSection - Adding to cart:", product);
-    try {
-      addToCart(product, 1, "1kg");
-      console.log("ProductsSection - Cart items after add:", cartItems);
-      alert(`${product.name} added to cart!`);
-    } catch (error) {
-      console.error("Failed to add to cart:", error);
-      alert("Failed to add item to cart. Please try again.");
-    }
+    addToCart(product, 1, "1kg");
+    // Success message is handled by the cart context
   };
 
   const handleProductClick = (productId: number) => {
