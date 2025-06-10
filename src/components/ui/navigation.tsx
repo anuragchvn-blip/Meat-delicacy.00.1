@@ -10,9 +10,8 @@ import { Cart } from "./Cart";
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
   const { user, logout } = useAuth();
-  const { getTotalItems, cartItems } = useCart();
+  const { getTotalItems, cartItems, isCartOpen, setIsCartOpen } = useCart();
   const navigate = useNavigate();
 
   const cartCount = getTotalItems();
