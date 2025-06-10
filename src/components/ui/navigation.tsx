@@ -138,17 +138,20 @@ export function Navigation() {
             <div className="lg:hidden flex items-center gap-4">
               {/* Mobile Cart */}
               <button
-                onClick={() => setIsCartOpen(true)}
+                onClick={() => {
+                  console.log("Opening cart (mobile) with items:", cartItems);
+                  setIsCartOpen(true);
+                }}
                 className="relative flex items-center gap-1 text-white/90 font-semibold"
               >
                 <ShoppingCart
-                  className="w-4 h-4"
+                  className="w-5 h-5"
                   stroke="#F8E3C9"
                   strokeWidth={1.2}
                 />
                 <span className="font-bold text-xs">Cart</span>
                 {cartCount > 0 && (
-                  <div className="absolute -top-1 -right-1 bg-brand-cream text-brand-dark text-xs font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                  <div className="absolute -top-2 -right-2 bg-[#C72C41] text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center min-w-[20px]">
                     {cartCount}
                   </div>
                 )}
