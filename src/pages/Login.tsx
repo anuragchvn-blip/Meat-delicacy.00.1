@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
@@ -10,7 +11,6 @@ import {
 } from "../components/ui/card";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Loader2, Phone, Shield, ArrowLeft } from "lucide-react";
-import { sendOTP, verifyOTP, setCurrentUser } from "../utils/auth";
 import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
