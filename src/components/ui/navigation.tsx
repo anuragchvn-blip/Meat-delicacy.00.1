@@ -65,7 +65,10 @@ export function Navigation() {
 
             {/* Desktop Cart & Auth */}
             <div className="hidden lg:flex items-center gap-8">
-              <button className="relative flex items-center gap-1 text-white/90 font-semibold hover:text-brand-cream transition-colors duration-150">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative flex items-center gap-1 text-white/90 font-semibold hover:text-brand-cream transition-colors duration-150"
+              >
                 <ShoppingCart
                   className="w-4 h-4"
                   stroke="#F8E3C9"
