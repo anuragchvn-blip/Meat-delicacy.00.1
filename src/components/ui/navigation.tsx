@@ -124,7 +124,10 @@ export function Navigation() {
             {/* Mobile Menu Button */}
             <div className="lg:hidden flex items-center gap-4">
               {/* Mobile Cart */}
-              <button className="relative flex items-center gap-1 text-white/90 font-semibold">
+              <button
+                onClick={() => setIsCartOpen(true)}
+                className="relative flex items-center gap-1 text-white/90 font-semibold"
+              >
                 <ShoppingCart
                   className="w-4 h-4"
                   stroke="#F8E3C9"
