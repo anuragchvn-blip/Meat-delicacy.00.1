@@ -374,6 +374,7 @@ const ProductDetail = () => {
         </section>
       </main>
       <Footer />
+      <CartDebugTest />
     </div>
   );
 };
