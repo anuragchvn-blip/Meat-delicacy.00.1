@@ -23,6 +23,7 @@ const Index = () => {
       </main>
       <Footer />
       <CartTest />
+      <CartVisibilityTest />
     </div>
   );
 };
