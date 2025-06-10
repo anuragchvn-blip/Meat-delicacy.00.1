@@ -24,8 +24,17 @@ export const BestsellersSection = () => {
   const totalSlides = Math.ceil(bestsellerProducts.length / itemsPerSlide);
 
   const handleAddToCart = (product: any) => {
-    addToCart(product, 1);
-    alert(`${product.name} added to cart!`);
+    try {
+      addToCart(product, 1, "1kg");
+      alert(`${product.name} added to cart!`);
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
+  };
+
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
   };
 
   const nextSlide = () => {
