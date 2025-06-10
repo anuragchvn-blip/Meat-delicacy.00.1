@@ -1,7 +1,11 @@
+import React from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { HeroForm } from "@/components/ui/hero-form";
+import { productCategories } from "@/data/products";
+import { getFeaturedBlogs } from "@/data/blogs";
 import {
   Star,
   Truck,
@@ -10,453 +14,546 @@ import {
   ArrowRight,
   Calendar,
   User,
+  Search,
+  ShoppingCart,
 } from "lucide-react";
 
 export default function Index() {
+  const featuredBlogs = getFeaturedBlogs(3);
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-brand-dark">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 lg:pt-32 pb-16 lg:pb-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-dark via-brand-dark-secondary to-gray-900"></div>
-        <div
-          className={
-            'absolute inset-0 bg-[url(\'data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.02"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\')] opacity-10'
-          }
-        ></div>
+      {/* Hero Section with Ordering Form */}
+      <main className="pt-[140px] bg-brand-dark">
+        <section className="relative">
+          {/* Background Gradient Overlay */}
+          <div
+            className="absolute bottom-0 left-1/2 h-full w-3/5 z-10"
+            style={{
+              background:
+                "linear-gradient(270.63deg, rgba(38, 38, 38, 0) 0.5%, rgb(38, 38, 38) 50.75%, rgba(38, 38, 38, 1) 101%)",
+              transform: "translateX(-50%)",
+            }}
+          />
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Premium
-                <span className="text-brand-cream block">Meat Delicacy</span>
-                Experience
-              </h1>
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Discover the finest selection of premium meats, carefully
-                sourced and expertly prepared. From grass-fed beef to free-range
-                poultry, every cut tells a story of quality and tradition.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button
-                  size="lg"
-                  className="bg-brand-cream text-brand-dark font-bold hover:bg-brand-cream-dark hover:scale-105 transition-all duration-300 px-8"
-                >
-                  Shop Now
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-brand-cream text-brand-cream hover:bg-brand-cream hover:text-brand-dark font-bold px-8"
-                >
-                  Learn More
-                </Button>
-              </div>
-            </div>
-
-            <div className="relative">
-              <div className="relative z-10 bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
-                <img
-                  src="https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=600&h=400&fit=crop&q=80"
-                  alt="Premium meat selection"
-                  className="w-full h-80 object-cover rounded-2xl shadow-2xl"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-brand-cream text-brand-dark p-4 rounded-xl shadow-lg">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-5 h-5 fill-current" />
-                    <span className="font-bold">4.9/5</span>
-                  </div>
-                  <p className="text-sm">Premium Quality</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Meat Delicacy?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to delivering the highest quality meats with
-              unmatched service and expertise.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mb-4">
-                  <Shield className="w-8 h-8 text-brand-dark" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  Premium Quality
-                </h3>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Every cut is carefully selected and inspected to ensure the
-                  highest standards of quality and freshness.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mb-4">
-                  <Truck className="w-8 h-8 text-brand-dark" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  Fast Delivery
-                </h3>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Temperature-controlled delivery ensures your meat arrives
-                  fresh and ready to cook.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center p-8 hover:shadow-lg transition-shadow duration-300">
-              <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-brand-cream rounded-full flex items-center justify-center mb-4">
-                  <Clock className="w-8 h-8 text-brand-dark" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900">
-                  Expert Butchers
-                </h3>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">
-                  Our skilled butchers have decades of experience in preparing
-                  and cutting premium meats.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Products Section */}
-      <section className="py-16 lg:py-24 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Featured Products
-            </h2>
-            <p className="text-xl text-gray-600">
-              Discover our most popular premium meat selections
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Wagyu Ribeye Steak",
-                price: "$89.99",
-                image:
-                  "https://images.unsplash.com/photo-1558030006-450675393462?w=400&h=300&fit=crop&q=80",
-                badge: "Premium",
-              },
-              {
-                name: "Grass-Fed Beef Tenderloin",
-                price: "$65.99",
-                image:
-                  "https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=300&fit=crop&q=80",
-                badge: "Best Seller",
-              },
-              {
-                name: "Free-Range Chicken Breast",
-                price: "$24.99",
-                image:
-                  "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=300&fit=crop&q=80",
-                badge: "Organic",
-              },
-            ].map((product, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group"
-              >
-                <div className="relative">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <Badge className="absolute top-4 left-4 bg-brand-cream text-brand-dark">
-                    {product.badge}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {product.name}
-                  </h3>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-bold text-brand-dark">
-                      {product.price}
-                    </span>
-                    <Button className="bg-brand-dark text-white hover:bg-brand-dark-secondary">
-                      Add to Cart
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              className="bg-brand-dark text-white hover:bg-brand-dark-secondary px-8"
-            >
-              View All Products
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Blog Section */}
-      <section className="py-16 lg:py-24 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              From Our Kitchen
-            </h2>
-            <p className="text-xl text-gray-600">
-              Expert tips, recipes, and insights from our culinary team
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[
-              {
-                title: "The Perfect Ribeye: A Complete Guide",
-                excerpt:
-                  "Learn the secrets to cooking the perfect ribeye steak, from selecting the right cut to achieving that perfect sear.",
-                image:
-                  "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=250&fit=crop&q=80",
-                author: "Chef Marcus",
-                date: "December 15, 2024",
-                readTime: "8 min read",
-              },
-              {
-                title: "Understanding Meat Grades and Quality",
-                excerpt:
-                  "Discover what makes premium meat premium, and how to identify quality cuts that will elevate your cooking.",
-                image:
-                  "https://images.unsplash.com/photo-1603048297172-c92544798d5a?w=400&h=250&fit=crop&q=80",
-                author: "Sarah Thompson",
-                date: "December 12, 2024",
-                readTime: "6 min read",
-              },
-              {
-                title: "Sustainable Farming: Our Commitment",
-                excerpt:
-                  "Learn about our partnerships with local farms and our commitment to sustainable, ethical meat production.",
-                image:
-                  "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&h=250&fit=crop&q=80",
-                author: "John Davis",
-                date: "December 10, 2024",
-                readTime: "5 min read",
-              },
-            ].map((post, index) => (
-              <Card
-                key={index}
-                className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
-              >
-                <div className="relative">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
-                    <div className="flex items-center gap-1">
-                      <Calendar className="w-4 h-4" />
-                      <span>{post.date}</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <User className="w-4 h-4" />
-                      <span>{post.author}</span>
-                    </div>
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-dark transition-colors duration-300">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500">
-                      {post.readTime}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      className="text-brand-dark hover:text-brand-dark-secondary p-0"
-                    >
-                      Read More
-                      <ArrowRight className="ml-1 w-4 h-4" />
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          <div className="text-center mt-12">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white px-8"
-            >
-              View All Articles
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Newsletter Section */}
-      <section className="py-16 lg:py-24 bg-brand-dark">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            Stay Updated
-          </h2>
-          <p className="text-xl text-gray-300 mb-8">
-            Get the latest recipes, cooking tips, and exclusive offers delivered
-            to your inbox.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-cream"
-            />
-            <Button className="bg-brand-cream text-brand-dark font-bold hover:bg-brand-cream-dark px-8">
-              Subscribe
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-brand-dark-secondary text-white py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div>
+          {/* Background Image */}
+          <div className="relative">
+            <div className="h-[650px]">
               <img
-                src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc.svg"
-                alt="Meat Delicacy logo"
-                className="h-12 w-auto mb-4"
+                src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
+                alt="banner figure"
+                className="w-full h-full object-cover"
               />
-              <p className="text-gray-300">
-                Premium quality meats delivered fresh to your door. Experience
-                the difference with Meat Delicacy.
-              </p>
             </div>
+          </div>
 
-            <div>
-              <h3 className="font-bold text-lg mb-4">Quick Links</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="/"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/products"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Our Products
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/blog"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Blog
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/about"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    About Us
-                  </a>
-                </li>
-              </ul>
-            </div>
+          {/* Hero Content */}
+          <div className="absolute inset-0 flex items-center">
+            <div className="max-w-[1232px] mx-auto px-3 w-full">
+              <div className="flex flex-wrap -mx-3">
+                <div className="w-7/12 ml-auto px-3 flex-shrink-0 max-w-full">
+                  <div className="relative text-center z-10">
+                    <h1 className="text-brand-cream/50 font-['Oswald'] text-2xl font-medium leading-9 mb-2 text-center uppercase">
+                      Delivered at your door step
+                    </h1>
+                    <h2
+                      className="font-['Oswald'] text-[130px] font-bold leading-[146px] text-center uppercase"
+                      style={{
+                        background:
+                          "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                      }}
+                    >
+                      Fresh pork
+                    </h2>
+                    <div className="w-[440px] mx-auto -mt-[92.8px] text-center">
+                      <img
+                        src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
+                        alt="banner meat"
+                        className="w-full h-full"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            <div>
-              <h3 className="font-bold text-lg mb-4">Customer Service</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="/contact"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Contact Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/shipping"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Shipping Info
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/returns"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    Returns
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/faq"
-                    className="text-gray-300 hover:text-brand-cream transition-colors"
-                  >
-                    FAQ
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-bold text-lg mb-4">Contact Info</h3>
-              <div className="space-y-2 text-gray-300">
-                <p>1-800-MEAT-123</p>
-                <p>info@meatdelicacy.com</p>
-                <p>Mon-Fri: 8AM-6PM PST</p>
+              {/* Ordering Form */}
+              <div className="flex flex-wrap -mx-3">
+                <HeroForm className="w-full px-3" />
               </div>
             </div>
           </div>
+        </section>
 
-          <div className="border-t border-gray-600 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Meat Delicacy. All rights reserved.</p>
+        {/* Products Section */}
+        <section className="bg-brand-dark py-20">
+          <div className="max-w-[1232px] mx-auto px-3">
+            {/* Section Header */}
+            <div className="flex items-end justify-between mb-4 w-full px-3">
+              <div>
+                <h2
+                  className="font-['Oswald'] text-5xl font-semibold tracking-wide leading-[67.2px] mb-4 uppercase"
+                  style={{
+                    background:
+                      "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Our products
+                </h2>
+                <p className="text-white/60 font-medium leading-5">
+                  Find your favourite cuts, delivered fast with special offers
+                  you won't want to miss.
+                </p>
+              </div>
+              <a
+                href="#"
+                className="flex items-center gap-2.5 text-brand-cream font-bold"
+              >
+                <span>View all</span>
+                <ArrowRight className="w-5 h-3" />
+              </a>
+            </div>
+
+            {/* Product Categories Tabs */}
+            <div className="flex items-center justify-between mb-4 w-full px-3">
+              <ul className="flex flex-wrap gap-5" role="tablist">
+                {productCategories.map((category, index) => (
+                  <li key={category.id} role="presentation">
+                    <button
+                      type="button"
+                      role="tab"
+                      className={`px-4 py-2 font-bold relative transition-all duration-150 ${
+                        index === 0
+                          ? "bg-red-600 text-brand-cream"
+                          : "bg-gray-900 text-gray-400"
+                      }`}
+                    >
+                      {category.name}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center gap-1.5">
+                <span className="text-white/60">Sort by:</span>
+                <select className="bg-transparent text-brand-cream font-bold text-sm border-none">
+                  <option value="popular">Popular</option>
+                  <option value="most-rated">Most Rated</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Products Grid */}
+            <div className="mt-12 px-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                {productCategories[0].products.slice(0, 8).map((product) => (
+                  <Card
+                    key={product.id}
+                    className="bg-transparent border-none text-white flex flex-col"
+                  >
+                    <div className="relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-[250px] object-cover transition-transform duration-500 hover:scale-105"
+                      />
+                      <div className="absolute top-6 right-0 bg-red-600 text-white font-['Oswald'] text-xs font-bold tracking-wide px-2 py-2 z-10 uppercase">
+                        {product.category}
+                      </div>
+                    </div>
+                    <CardContent className="flex-grow pt-4">
+                      <h5 className="text-white text-lg font-bold leading-6 mb-1">
+                        {product.name}
+                      </h5>
+                      <p className="text-white/60 text-sm leading-5 mb-2">
+                        {product.weight}
+                      </p>
+                    </CardContent>
+                    <div className="flex items-center justify-between mt-2 px-6 pb-6">
+                      <div className="font-bold">
+                        <span className="text-white text-xl font-bold leading-7">
+                          ₹{product.price}/-
+                        </span>
+                        {product.originalPrice && (
+                          <span className="text-red-600 font-bold leading-5 ml-2">
+                            <strike>₹{product.originalPrice}/-</strike>
+                          </span>
+                        )}
+                      </div>
+                      <Button className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-2 hover:bg-brand-cream-dark transition-all duration-300">
+                        Add
+                      </Button>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </footer>
+        </section>
+
+        {/* Bestsellers Section */}
+        <section className="bg-[#FCF3E8] py-20">
+          <div className="max-w-[1232px] mx-auto px-3">
+            <div className="flex items-end justify-between mb-4 w-full px-3">
+              <h2 className="text-red-600 font-['Oswald'] text-5xl font-semibold tracking-wide leading-[67.2px] uppercase">
+                Bestsellers
+              </h2>
+              <a
+                href="#"
+                className="flex items-center gap-2.5 text-red-600 font-bold"
+              >
+                <span>View all</span>
+                <ArrowRight className="w-5 h-3" />
+              </a>
+            </div>
+
+            {/* Bestsellers Carousel */}
+            <div className="relative overflow-hidden">
+              <div className="flex gap-5">
+                {productCategories[2].products.slice(0, 3).map((product) => (
+                  <div key={product.id} className="flex-shrink-0 w-[389px]">
+                    <Card className="bg-white flex flex-col h-full">
+                      <div className="relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-[250px] object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                        <div className="absolute top-6 right-0 bg-red-600 text-white font-['Oswald'] text-xs font-bold tracking-wide px-2 py-2 z-10 uppercase">
+                          Best Sellers
+                        </div>
+                      </div>
+                      <CardContent className="flex-grow pt-4">
+                        <h5 className="text-gray-900 text-lg font-bold leading-6 mb-1">
+                          {product.name}
+                        </h5>
+                        <p className="text-gray-600 text-sm leading-5 mb-2">
+                          {product.weight}
+                        </p>
+                      </CardContent>
+                      <div className="flex items-center justify-between mt-2 px-6 pb-6">
+                        <div className="font-bold">
+                          <span className="text-gray-900 text-xl font-bold leading-7">
+                            ₹{product.price}/-
+                          </span>
+                          {product.originalPrice && (
+                            <span className="text-red-600 font-bold leading-5 ml-2">
+                              <strike>₹{product.originalPrice}/-</strike>
+                            </span>
+                          )}
+                        </div>
+                        <Button className="bg-red-600 text-white font-bold text-sm uppercase px-6 py-2 hover:bg-red-700">
+                          Add
+                        </Button>
+                      </div>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Delivery Banner */}
+            <div className="mt-20 px-3">
+              <div className="bg-red-600 text-white grid grid-cols-[645px_1fr] items-center px-11 relative">
+                <div>
+                  <h3 className="font-['Oswald'] text-4xl font-bold leading-12 mb-4 uppercase">
+                    fast, reliable and fresh quality pork delivered at your
+                    doorstep!
+                  </h3>
+                  <p className="text-white/70 font-medium max-w-[330px]">
+                    Enjoy hassle-free home delivery straight from the farm to
+                    your kitchen.
+                  </p>
+                </div>
+                <div className="h-[287px] -mt-9 text-right">
+                  <img
+                    src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/delivery-boy.png"
+                    alt="delivery boy"
+                    className="h-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Pork Anatomy Interactive Section */}
+        <section className="bg-[#FCF3E8] py-20">
+          <div className="max-w-[1232px] mx-auto px-3">
+            <div className="grid grid-cols-[1fr_340px] gap-15">
+              <div className="flex flex-col gap-4">
+                <div className="max-w-[800px] flex items-center">
+                  <div className="relative">
+                    <img
+                      src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/parts/front.png"
+                      className="max-w-full transition-opacity duration-300"
+                      alt="Pork anatomy front"
+                    />
+                    {/* Interactive dots */}
+                    <div className="absolute top-2/5 left-[100px] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                  </div>
+                  <div className="relative -left-px -top-4">
+                    <img
+                      src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/parts/middle.png"
+                      className="max-w-full transition-opacity duration-300"
+                      alt="Pork anatomy middle"
+                    />
+                    <div className="absolute bottom-[-5px] left-[19%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="relative -left-px -top-4">
+                      <img
+                        src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/parts/middle-top.png"
+                        className="max-w-full transition-opacity duration-300"
+                        alt="Pork anatomy middle top"
+                      />
+                      <div className="absolute top-[28%] left-[60%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                    </div>
+                  </div>
+                  <div className="relative -left-1">
+                    <img
+                      src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/parts/back.png"
+                      className="max-w-full transition-opacity duration-300"
+                      alt="Pork anatomy back"
+                    />
+                    <div className="absolute top-[35%] left-[10%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                  </div>
+                </div>
+              </div>
+
+              <div className="min-h-[200px] relative">
+                <div className="flex items-center justify-center h-full bg-red-600/20 border text-gray-600 font-medium px-10 text-center">
+                  <p>Click on the image to view the products</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Blog Section */}
+        <section className="bg-white py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                From Our Kitchen
+              </h2>
+              <p className="text-xl text-gray-600">
+                Expert tips, recipes, and insights from our culinary team
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {featuredBlogs.map((post) => (
+                <Card
+                  key={post.id}
+                  className="overflow-hidden hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
+                >
+                  <div className="relative">
+                    <img
+                      src={post.featuredImage}
+                      alt={post.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{post.publishDate}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <User className="w-4 h-4" />
+                        <span>{post.author}</span>
+                      </div>
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-brand-dark transition-colors duration-300">
+                      {post.title}
+                    </h3>
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-gray-500">
+                        {post.readTime}
+                      </span>
+                      <Button
+                        variant="ghost"
+                        className="text-brand-dark hover:text-brand-dark-secondary p-0"
+                      >
+                        Read More
+                        <ArrowRight className="ml-1 w-4 h-4" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="text-center mt-12">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-brand-dark text-brand-dark hover:bg-brand-dark hover:text-white px-8"
+              >
+                View All Articles
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Customer Testimonials */}
+        <section className="bg-brand-dark py-20">
+          <div className="max-w-[1232px] mx-auto px-3">
+            <div className="text-center mb-2 w-full px-3">
+              <h2
+                className="font-['Oswald'] text-5xl font-semibold tracking-wide leading-[67.2px] mb-4 text-center uppercase"
+                style={{
+                  background:
+                    "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                What our customers have to say
+              </h2>
+            </div>
+
+            {/* Testimonials Carousel */}
+            <div className="overflow-hidden relative touch-pan-y z-10">
+              <div className="flex">
+                {[
+                  {
+                    name: "Priya S",
+                    text: "The freshness of the meat here is unmatched! Every order I've received has been incredibly tender and flavorful. It's like it just came straight from the farm. I've stopped buying from anywhere else—this is my go-to for fresh pork!",
+                  },
+                  {
+                    name: "Arjun M",
+                    text: "If you're looking for quality pork and delicious sausages, this is the place. The sausages are perfectly spiced and juicy, and the pork is always fresh. It's so convenient to order and have it delivered to my doorstep.",
+                  },
+                  {
+                    name: "Neha R",
+                    text: "The pork here is 100% organic, and you can taste the difference! Every cut is so flavorful and juicy. From roasts to sausages, everything I've tried has been exceptional. Hands down, the best place for pork and pork items!",
+                  },
+                ].map((testimonial, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-[1018px] flex items-center justify-center"
+                  >
+                    <div className="bg-gray-800 px-10 py-12">
+                      <div className="flex items-center gap-4 text-white/70 font-semibold mb-4">
+                        <User className="w-4 h-4" />
+                        <span>{testimonial.name}</span>
+                      </div>
+                      <blockquote className="text-white leading-5 relative">
+                        <p className="font-medium text-lg leading-6 pt-2">
+                          {testimonial.text}
+                        </p>
+                      </blockquote>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="bg-brand-dark">
+          <div className="max-w-[1232px] mx-auto px-3">
+            <div className="flex justify-between py-10 px-3">
+              <div className="flex gap-10 text-white">
+                <a
+                  href="tel: +918123959702"
+                  className="text-sm font-semibold leading-5"
+                >
+                  +91-8123959702
+                </a>
+                <a
+                  href="mailto: support@meatdelicacy.com"
+                  className="text-sm font-semibold leading-5"
+                >
+                  support@meatdelicacy.com
+                </a>
+              </div>
+              <div className="flex items-center gap-5">
+                <h6 className="text-white text-sm font-semibold leading-5">
+                  Follow Us
+                </h6>
+                <a href="#" className="text-blue-600 underline">
+                  <img
+                    src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/icons/facebook.svg"
+                    alt="Facebook"
+                  />
+                </a>
+                <a href="#" className="text-blue-600 underline">
+                  <img
+                    src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/icons/instagram.svg"
+                    alt="Instagram"
+                  />
+                </a>
+              </div>
+            </div>
+
+            <ul className="flex justify-center gap-[70px] border-t border-brand-cream/40 py-9 px-3">
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-sm font-semibold leading-5"
+                >
+                  Contact Us
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-sm font-semibold leading-5"
+                >
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-sm font-semibold leading-5"
+                >
+                  Term & Condition
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-sm font-semibold leading-5"
+                >
+                  Refund & Return Policy
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-white text-sm font-semibold leading-5"
+                >
+                  Shipping Policy
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="bg-gray-800 text-white font-semibold py-4 text-center">
+            <p className="text-sm font-semibold leading-5">
+              Copyright © 2024 Meat Delicacy
+            </p>
+          </div>
+        </footer>
+      </main>
     </div>
   );
 }
