@@ -21,6 +21,7 @@ const Index = () => {
         <TestimonialsSection />
       </main>
       <Footer />
+      <CartDebug />
     </div>
   );
 };
