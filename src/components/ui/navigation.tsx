@@ -8,8 +8,8 @@ export function Navigation() {
   const [cartCount] = useState(0);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark/95 backdrop-blur-[40px] transition-all duration-300">
-      <nav className="relative bg-brand-dark-secondary/90 backdrop-blur-[40px]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-secondary/95 backdrop-blur-md border-b border-white/10">
+      <nav className="relative">
         <div className="max-w-[1232px] mx-auto px-8 lg:px-6">
           <div className="flex items-center justify-between py-4">
             {/* Logo */}
