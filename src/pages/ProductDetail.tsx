@@ -74,14 +74,20 @@ const ProductDetail = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen bg-[#262729] flex items-center justify-center">
-        <div className="text-white text-xl">Product not found</div>
+      <div className="min-h-screen bg-[#262729]">
+        <Navigation />
+        <div className="pt-20 flex items-center justify-center min-h-[60vh]">
+          <div className="text-white text-xl">Product not found</div>
+        </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <section className="bg-[#262729] py-12">
+    <div className="min-h-screen bg-[#262729]">
+      <Navigation />
+      <section className="bg-[#262729] pt-20 pb-12">
       <div className="max-w-[1232px] mx-auto px-3">
         {/* Breadcrumb */}
         <nav aria-label="breadcrumb" className="w-full px-3">
