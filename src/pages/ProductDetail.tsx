@@ -14,6 +14,7 @@ import { Product } from "../data/products";
 import { Minus, Plus } from "lucide-react";
 import { Navigation } from "../components/ui/navigation";
 import { Footer } from "../components/ui/Footer";
+import { CartDebugTest } from "../components/ui/CartDebugTest";
 
 const ProductDetail = () => {
   const { productId } = useParams();
