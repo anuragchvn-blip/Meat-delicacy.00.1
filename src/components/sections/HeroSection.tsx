@@ -135,9 +135,9 @@ export const HeroSection = () => {
       <div className="relative z-10 flex items-center min-h-[650px]">
         <div className="max-w-[1232px] mx-auto px-3 w-full">
           <div className="flex flex-wrap -mx-3">
-            {/* Content positioned to the right, taking up about 58% width */}
-            <div className="w-full lg:w-7/12 px-3 ml-auto flex items-center min-h-[650px]">
-              <div className="text-center relative z-10">
+            {/* Centered content container */}
+            <div className="w-full px-3 flex items-center justify-center min-h-[650px]">
+              <div className="text-center relative z-10 max-w-4xl mx-auto">
                 {/* Subtitle */}
                 <h1 className="text-[rgba(248,227,201,0.5)] font-oswald text-2xl font-medium uppercase mb-2 leading-9">
                   Delivered at your door step
@@ -145,7 +145,7 @@ export const HeroSection = () => {
 
                 {/* Main heading with gradient text */}
                 <h2
-                  className="font-oswald text-[130px] font-bold uppercase leading-[146px] text-center mb-0"
+                  className="font-oswald text-6xl md:text-8xl lg:text-[130px] font-bold uppercase leading-tight lg:leading-[146px] text-center mb-0"
                   style={{
                     background:
                       "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
@@ -158,7 +158,7 @@ export const HeroSection = () => {
                 </h2>
 
                 {/* Meat Banner Image Overlay - positioned over text */}
-                <div className="w-[440px] mx-auto -mt-[92.8px] relative">
+                <div className="w-full max-w-[440px] mx-auto -mt-[40px] lg:-mt-[92.8px] relative">
                   <img
                     src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
                     alt="banner meat"
@@ -169,8 +169,8 @@ export const HeroSection = () => {
             </div>
           </div>
 
-          {/* Order Form positioned at bottom */}
-          <div className="flex flex-wrap -mx-3">
+          {/* Order Form positioned at bottom center */}
+          <div className="flex flex-wrap -mx-3 absolute bottom-8 left-0 right-0">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -178,9 +178,9 @@ export const HeroSection = () => {
               }}
               className="w-full px-3"
             >
-              {/* Form container with 91.67% width and auto left margin */}
-              <div className="w-11/12 ml-auto">
-                <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10">
+              {/* Centered form container */}
+              <div className="max-w-5xl mx-auto">
+                <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10 rounded-lg">
                   {/* Delivery Info Banner */}
                   <div className="mb-4 text-center">
                     <p className="text-[#F8E3C9] text-sm font-semibold">
