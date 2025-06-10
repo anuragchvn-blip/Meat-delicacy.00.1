@@ -28,6 +28,13 @@ export default {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
         },
+        // Meat Delicacy Brand Colors
+        brand: {
+          dark: "#262729",
+          "dark-secondary": "#303132",
+          cream: "#F8E3C9",
+          "cream-dark": "#E5D1B5",
+        },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
