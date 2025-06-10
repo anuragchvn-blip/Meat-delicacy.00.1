@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import {
@@ -16,13 +17,23 @@ export const ProductsSection = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [sortBy, setSortBy] = useState("popular");
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   const currentCategory = productCategories[activeTab];
   const products = currentCategory?.products || [];
 
   const handleAddToCart = (product: any) => {
-    addToCart(product, 1);
-    alert(`${product.name} added to cart!`);
+    try {
+      addToCart(product, 1, "1kg");
+      alert(`${product.name} added to cart!`);
+    } catch (error) {
+      console.error("Failed to add to cart:", error);
+      alert("Failed to add item to cart. Please try again.");
+    }
+  };
+
+  const handleProductClick = (productId: number) => {
+    navigate(`/product/${productId}`);
   };
 
   return (
@@ -49,115 +60,136 @@ export const ProductsSection = () => {
                 won't want to miss.
               </p>
             </div>
-            <a
-              href="/products"
-              className="flex items-center gap-3 text-[#F8E3C9] font-bold hover:text-[#F8E3C9]/80 transition-colors"
-            >
-              <span>View all</span>
-              <ArrowRight className="w-5 h-5" />
-            </a>
+            <button className="flex items-center gap-2 text-[#F8E3C9] font-semibold hover:text-white transition-colors">
+              View all
+              <ArrowRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
-        {/* Category Tabs and Sort */}
-        <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full px-3 flex items-center justify-between mb-4">
-            {/* Category Tabs */}
-            <ul className="flex flex-wrap gap-5">
+        {/* Category Tabs */}
+        <div className="flex flex-wrap -mx-3 mb-8">
+          <div className="w-full px-3">
+            <div className="flex flex-wrap gap-4 mb-8">
               {productCategories.map((category, index) => (
-                <li key={category.id}>
-                  <button
-                    onClick={() => setActiveTab(index)}
-                    className={`px-4 py-2 font-bold transition-all duration-300 ${
-                      activeTab === index
-                        ? "bg-[#C72C41] text-[#F8E3C9] border border-[#F8E3C9]"
-                        : "bg-[#181818] text-[#A8A9A9] border border-[#A8A9A9]"
-                    }`}
-                  >
-                    {category.name}
-                  </button>
-                </li>
+                <button
+                  key={category.id}
+                  onClick={() => setActiveTab(index)}
+                  className={`px-6 py-3 font-semibold transition-all duration-300 ${
+                    activeTab === index
+                      ? "bg-[#C72C41] text-white"
+                      : "bg-[#363739] text-white/80 hover:bg-[#C72C41]/80 hover:text-white"
+                  }`}
+                >
+                  {category.name}
+                </button>
               ))}
-            </ul>
+            </div>
 
-            {/* Sort Dropdown */}
-            <div className="flex items-center gap-2">
-              <span className="text-white/60 text-sm">Sort by:</span>
-              <Select value={sortBy} onValueChange={setSortBy}>
-                <SelectTrigger className="w-32 h-7 bg-transparent border-none text-[#F8E3C9] font-bold text-sm">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="popular">Popular</SelectItem>
-                  <SelectItem value="most-rated">Most Rated</SelectItem>
-                  <SelectItem value="price-low">Price: Low to High</SelectItem>
-                  <SelectItem value="price-high">Price: High to Low</SelectItem>
-                </SelectContent>
-              </Select>
+            {/* Sort and Filter */}
+            <div className="flex items-center justify-between mb-8">
+              <p className="text-white/60">
+                Showing {products.length} products
+              </p>
+              <div className="flex items-center gap-4">
+                <span className="text-white/60">Sort by:</span>
+                <Select value={sortBy} onValueChange={setSortBy}>
+                  <SelectTrigger className="w-40 bg-[#363739] border-none text-white">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="popular">Most Popular</SelectItem>
+                    <SelectItem value="price-low">
+                      Price: Low to High
+                    </SelectItem>
+                    <SelectItem value="price-high">
+                      Price: High to Low
+                    </SelectItem>
+                    <SelectItem value="newest">Newest First</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Products Grid */}
         <div className="flex flex-wrap -mx-3">
-          <div className="w-full px-3 pt-2">
-            <div className="transition-opacity duration-300">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {products.map((product) => (
+          <div className="w-full px-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {products.map((product) => (
+                <div
+                  key={product.id}
+                  className="bg-[#363739] rounded-lg overflow-hidden hover:transform hover:scale-105 transition-all duration-300 cursor-pointer group"
+                >
+                  {/* Product Image */}
                   <div
-                    key={product.id}
-                    className="bg-transparent text-white flex flex-col"
+                    className="relative h-48 overflow-hidden"
+                    onClick={() => handleProductClick(product.id)}
                   >
-                    <div className="relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent z-10"></div>
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute top-6 right-0 z-20">
-                        <Badge
-                          className="bg-[#C72C41] text-white font-bold text-xs uppercase tracking-wider py-2 px-3 border-none"
-                          style={{
-                            clipPath:
-                              "polygon(0 0, 100% 0, 100% 50%, 100% 100%, 8px 100%, 0 50%)",
-                          }}
-                        >
-                          {currentCategory.name}
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {/* Category Badge */}
+                    <div className="absolute top-3 left-3">
+                      <Badge className="bg-[#C72C41] text-white text-xs font-bold px-2 py-1">
+                        {currentCategory.name}
+                      </Badge>
+                    </div>
+                    {/* Discount Badge */}
+                    {product.discountPrice && (
+                      <div className="absolute top-3 right-3">
+                        <Badge className="bg-[#E3A914] text-white text-xs font-bold px-2 py-1">
+                          {Math.round(
+                            ((product.price - product.discountPrice) /
+                              product.price) *
+                              100,
+                          )}
+                          % OFF
                         </Badge>
                       </div>
-                    </div>
+                    )}
+                  </div>
 
-                    <div className="flex-grow pt-4">
-                      <h5 className="text-lg font-bold leading-7 mb-1">
-                        {product.name}
-                      </h5>
-                      <p className="text-white/60 text-sm">{product.weight}</p>
-                    </div>
+                  {/* Product Info */}
+                  <div className="p-4">
+                    <h3
+                      className="text-white font-bold text-lg mb-2 hover:text-[#F8E3C9] transition-colors cursor-pointer"
+                      onClick={() => handleProductClick(product.id)}
+                    >
+                      {product.name}
+                    </h3>
+                    <p className="text-white/60 text-sm mb-3">
+                      {product.weight || "1kg"}
+                    </p>
 
-                    <div className="flex items-center justify-between mt-2">
-                      <div className="font-bold">
-                        <span className="text-xl leading-7">
-                          ₹{product.price}/-
+                    {/* Price and Add Button */}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#F8E3C9] font-bold text-lg">
+                          ₹{product.discountPrice || product.price}/-
                         </span>
                         {product.discountPrice && (
-                          <span className="text-[#C72C41] ml-2">
-                            <span className="line-through">
-                              ₹{product.discountPrice}/-
-                            </span>
+                          <span className="text-[#C72C41] text-sm line-through">
+                            ₹{product.price}/-
                           </span>
                         )}
                       </div>
                       <Button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToCart(product);
+                        }}
                         className="bg-[#F8E3C9] text-[#303132] font-bold text-sm uppercase px-6 py-2 hover:bg-[#F8E3C9]/90 transition-all duration-300"
                       >
                         Add
                       </Button>
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
