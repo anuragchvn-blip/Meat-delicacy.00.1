@@ -1,7 +1,10 @@
 import { useState } from "react";
-import { ShoppingCart, Menu, X } from "lucide-react";
+import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
+import { useAuth } from "../../hooks/useAuth";
+import { useCart } from "../../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
