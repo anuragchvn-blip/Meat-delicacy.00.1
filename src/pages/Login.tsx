@@ -14,92 +14,55 @@ import { Loader2, Phone, Shield, ArrowLeft } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState<"phone" | "otp">("phone");
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const { setUser } = useAuth();
+  const { sendOTP, verifyOTP, loading, error } = useAuth();
 
   const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
     if (!phone || phone.length !== 10) {
-      setError("Please enter a valid 10-digit phone number");
+      alert("Please enter a valid 10-digit phone number");
       return;
     }
 
-    setLoading(true);
-    try {
-      const result = await sendOTP(phone);
-      if (result.success) {
-        setSuccess("OTP sent successfully! Check your phone.");
-        setStep("otp");
-      } else {
-        setError(result.message);
-      }
-    } catch (err) {
-      setError("Failed to send OTP. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await sendOTP(phone);
+    if (result) {
+      setSuccess("OTP sent successfully! Check your phone.");
+      setStep("otp");
     }
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
 
     if (!otp || otp.length !== 6) {
-      setError("Please enter a valid 6-digit OTP");
+      alert("Please enter a valid 6-digit OTP");
       return;
     }
 
-    setLoading(true);
-    try {
-      const result = await verifyOTP(phone, otp);
-      if (result.success && result.user) {
-        setCurrentUser(result.user);
-        setUser(result.user);
-        setSuccess("Login successful! Redirecting...");
-        // Redirect to dashboard or home page
-        setTimeout(() => {
-          window.location.href = "/";
-        }, 1500);
-      } else {
-        setError(result.message);
-      }
-    } catch (err) {
-      setError("Failed to verify OTP. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await verifyOTP(phone, otp);
+    if (result) {
+      setSuccess("Login successful! Redirecting...");
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     }
   };
 
   const handleBackToPhone = () => {
     setStep("phone");
     setOtp("");
-    setError("");
     setSuccess("");
   };
 
   const handleResendOTP = async () => {
-    setError("");
-    setLoading(true);
-    try {
-      const result = await sendOTP(phone);
-      if (result.success) {
-        setSuccess("OTP sent again! Check your phone.");
-      } else {
-        setError(result.message);
-      }
-    } catch (err) {
-      setError("Failed to resend OTP. Please try again.");
-    } finally {
-      setLoading(false);
+    const result = await sendOTP(phone);
+    if (result) {
+      setSuccess("OTP sent again! Check your phone.");
     }
   };
 
