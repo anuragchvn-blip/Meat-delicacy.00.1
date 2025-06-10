@@ -76,7 +76,7 @@ export function HeroForm({ className }: HeroFormProps) {
           handleOrderNow();
         }}
       >
-        <div className="grid grid-cols-4 gap-4 bg-red-600/50 backdrop-blur-sm border border-red-600/40 px-8 py-6 relative z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 bg-red-600/50 backdrop-blur-sm border border-red-600/40 px-8 py-6 relative z-10">
           {/* Product Selection */}
           <div>
             <span className="flex items-center text-white/60 text-xs font-semibold uppercase gap-1.5 mb-2">
