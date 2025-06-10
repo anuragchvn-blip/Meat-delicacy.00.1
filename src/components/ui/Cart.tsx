@@ -57,14 +57,19 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40" onClick={onClose}></div>
+        <div
+          className="fixed inset-0 bg-black/50 z-[1040]"
+          onClick={onClose}
+          style={{ zIndex: 1040 }}
+        ></div>
       )}
 
       {/* Cart Sidebar */}
       <div
-        className={`fixed top-0 right-0 h-full w-full max-w-[627px] bg-[#262729] z-[1045] transform transition-transform duration-300 ease-in-out overflow-y-auto border-l border-[#212529] ${
+        className={`fixed top-0 right-0 h-full w-full max-w-[627px] bg-[#262729] transform transition-transform duration-300 ease-in-out overflow-y-auto border-l border-[#212529] ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        style={{ zIndex: 1045 }}
       >
         <div className="flex flex-col h-full">
           {/* Header */}
