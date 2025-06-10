@@ -226,6 +226,9 @@ export function Navigation() {
           </div>
         </div>
       </nav>
+
+      {/* Cart Sidebar */}
+      <Cart isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </header>
   );
 }
