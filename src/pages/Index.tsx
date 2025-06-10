@@ -26,7 +26,7 @@ export default function Index() {
       <Navigation />
 
       {/* Hero Section with Ordering Form */}
-      <main className="pt-[140px] bg-brand-dark">
+      <main className="pt-20 bg-brand-dark">
         <section className="relative">
           {/* Background Gradient Overlay */}
           <div
