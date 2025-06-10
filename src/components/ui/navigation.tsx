@@ -23,8 +23,19 @@ export function Navigation() {
       cartCount,
       "Cart items:",
       cartItems,
+      "Cart open:",
+      isCartOpen,
     );
-  }, [cartCount, cartItems]);
+  }, [cartCount, cartItems, isCartOpen]);
+
+  const handleCartClick = () => {
+    console.log("Cart button clicked, current state:", {
+      cartCount,
+      cartItems,
+      isCartOpen,
+    });
+    setIsCartOpen(true);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-dark-secondary/95 backdrop-blur-md border-b border-white/10">
