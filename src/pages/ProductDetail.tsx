@@ -12,6 +12,8 @@ import { useCart } from "../contexts/CartContext";
 import { productCategories } from "../data/products";
 import { Product } from "../data/products";
 import { Minus, Plus } from "lucide-react";
+import { Navigation } from "../components/ui/navigation";
+import { Footer } from "../components/ui/Footer";
 
 const ProductDetail = () => {
   const { productId } = useParams();
