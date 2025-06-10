@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../contexts/CartContext";
 import { useAuth } from "../hooks/useAuth";
 import { useOrders } from "../hooks/useOrders";
 import { Navigation } from "../components/ui/navigation";
