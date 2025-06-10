@@ -50,16 +50,16 @@ export default function Index() {
           </div>
 
           {/* Hero Content */}
-          <div className="absolute inset-0 flex items-center">
+          <div className="absolute inset-0 flex flex-col justify-center">
             <div className="max-w-[1232px] mx-auto px-3 w-full">
               <div className="flex flex-wrap -mx-3">
-                <div className="w-7/12 ml-auto px-3 flex-shrink-0 max-w-full">
+                <div className="w-full lg:w-7/12 ml-auto px-3 flex-shrink-0 max-w-full">
                   <div className="relative text-center z-10">
-                    <h1 className="text-brand-cream/50 font-['Oswald'] text-2xl font-medium leading-9 mb-2 text-center uppercase">
+                    <h1 className="text-brand-cream/50 font-['Oswald'] text-lg md:text-2xl font-medium leading-7 md:leading-9 mb-2 text-center uppercase">
                       Delivered at your door step
                     </h1>
                     <h2
-                      className="font-['Oswald'] text-[130px] font-bold leading-[146px] text-center uppercase"
+                      className="font-['Oswald'] text-6xl md:text-8xl lg:text-[130px] font-bold leading-tight md:leading-[146px] text-center uppercase"
                       style={{
                         background:
                           "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
@@ -70,11 +70,11 @@ export default function Index() {
                     >
                       Fresh pork
                     </h2>
-                    <div className="w-[440px] mx-auto -mt-[92.8px] text-center">
+                    <div className="w-full max-w-[440px] mx-auto -mt-8 md:-mt-[92.8px] text-center">
                       <img
                         src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
                         alt="banner meat"
-                        className="w-full h-full"
+                        className="w-full h-auto"
                       />
                     </div>
                   </div>
