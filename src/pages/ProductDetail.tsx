@@ -8,7 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
-import { useCart } from "../hooks/useCart";
+import { useCart } from "../contexts/CartContext";
 import { productCategories } from "../data/products";
 import { Product } from "../data/products";
 import { Minus, Plus } from "lucide-react";
