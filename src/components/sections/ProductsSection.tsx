@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../contexts/CartContext";
 import { productCategories, Product } from "../../data/products";
 import { ArrowRight } from "lucide-react";
 
