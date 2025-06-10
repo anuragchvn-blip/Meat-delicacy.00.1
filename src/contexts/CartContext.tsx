@@ -73,6 +73,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       product,
       quantity,
       selectedWeight,
+      currentCartItems: cartItems,
     });
 
     setCartItems((prevItems) => {
@@ -103,6 +104,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return updatedItems;
       }
     });
+
+    // Auto-open cart when item is added
+    setIsCartOpen(true);
   };
 
   const removeFromCart = (itemId: number) => {
