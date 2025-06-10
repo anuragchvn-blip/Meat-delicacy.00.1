@@ -6,8 +6,6 @@ import { AnatomySection } from "../components/sections/AnatomySection";
 import { BlogSection } from "../components/sections/BlogSection";
 import { TestimonialsSection } from "../components/sections/TestimonialsSection";
 import { Footer } from "../components/ui/Footer";
-import { CartTest } from "../components/ui/CartTest";
-import { CartVisibilityTest } from "../components/ui/CartVisibilityTest";
 
 const Index = () => {
   return (
@@ -22,8 +20,6 @@ const Index = () => {
         <TestimonialsSection />
       </main>
       <Footer />
-      <CartTest />
-      <CartVisibilityTest />
     </div>
   );
 };
