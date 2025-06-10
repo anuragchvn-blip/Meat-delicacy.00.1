@@ -200,35 +200,29 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
 
           {/* Cart Footer - Only show when there are items */}
           {cartItems.length > 0 && (
-            <div className="border-t border-gray-600 p-5">
-              {/* Total Price */}
-              <div className="flex justify-between items-center text-brand-cream text-3xl font-bold capitalize mb-4 pb-6 border-b border-[#494A4B]">
-                <span>Total cart price</span>
-                <span>
-                  <span>₹</span>
-                  <span>{getTotalPrice()}</span>
-                </span>
-              </div>
+            <div className="border-t border-gray-600 p-5 relative">
+              <div className="w-full px-3">
+                {/* Total Price */}
+                <div className="flex justify-between items-center text-brand-cream text-3xl font-bold capitalize mb-4 pb-6 border-b border-[#494A4B]">
+                  <span>Total cart price</span>
+                  <span>
+                    <span>₹</span>
+                    <span>{getTotalPrice()}</span>
+                  </span>
+                </div>
 
-              {/* Action Buttons */}
-              <div className="space-y-3">
-                <Button
+                {/* Action Buttons */}
+                <button
                   onClick={handleCheckout}
-                  className="w-full bg-brand-cream text-[#303132] font-bold text-sm capitalize hover:bg-brand-cream/90 transition-all duration-300 py-3"
+                  className="w-full bg-brand-cream text-[#303132] font-bold text-sm capitalize hover:bg-brand-cream/90 transition-all duration-300 py-3 px-8 mt-2 inline-block text-center"
                 >
                   Proceed to checkout
-                </Button>
-                <Button
-                  onClick={() => {
-                    if (confirm("Are you sure you want to clear your cart?")) {
-                      clearCart();
-                    }
-                  }}
-                  variant="outline"
-                  className="w-full border-white/20 text-white hover:bg-white/10"
-                >
-                  Clear Cart
-                </Button>
+                </button>
+              </div>
+
+              {/* Loading overlay (hidden by default) */}
+              <div className="hidden absolute top-0 left-0 w-full h-full flex items-center justify-center z-10">
+                <div className="animate-spin rounded-full h-10 w-10 border-b-4 border-[#0099FF]"></div>
               </div>
             </div>
           )}
