@@ -3,7 +3,7 @@ import { ShoppingCart, Menu, X, User, LogOut } from "lucide-react";
 import { Button } from "./button";
 import { cn } from "@/lib/utils";
 import { useAuth } from "../../hooks/useAuth";
-import { useCart } from "../../hooks/useCart";
+import { useCart } from "../../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { Cart } from "./Cart";
 
