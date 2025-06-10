@@ -145,10 +145,7 @@ export function Navigation() {
             <div className="lg:hidden flex items-center gap-4">
               {/* Mobile Cart */}
               <button
-                onClick={() => {
-                  console.log("Opening cart (mobile) with items:", cartItems);
-                  setIsCartOpen(true);
-                }}
+                onClick={handleCartClick}
                 className="relative flex items-center gap-1 text-white/90 font-semibold"
               >
                 <ShoppingCart
