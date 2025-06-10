@@ -9,6 +9,7 @@ import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 export const BestsellersSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   // Get bestseller products (first 5 products from different categories)
   const bestsellerProducts = [
