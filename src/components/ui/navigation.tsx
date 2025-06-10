@@ -61,7 +61,7 @@ export function Navigation() {
               </ul>
             </div>
 
-            {/* Desktop Cart & Login */}
+            {/* Desktop Cart & Auth */}
             <div className="hidden lg:flex items-center gap-8">
               <button className="relative flex items-center gap-1 text-white/90 font-semibold hover:text-brand-cream transition-colors duration-150">
                 <ShoppingCart
@@ -77,9 +77,43 @@ export function Navigation() {
                 )}
               </button>
 
-              <Button className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-2.5 hover:bg-brand-cream-dark transition-all duration-300 hover:scale-105">
-                Login
-              </Button>
+              {user ? (
+                <div className="relative">
+                  <button
+                    onClick={() => setShowUserMenu(!showUserMenu)}
+                    className="flex items-center gap-2 bg-brand-cream text-brand-dark font-bold text-sm uppercase px-4 py-2.5 rounded hover:bg-brand-cream-dark transition-all duration-300"
+                  >
+                    <User className="w-4 h-4" />
+                    {user.phone}
+                  </button>
+                  {showUserMenu && (
+                    <div className="absolute right-0 top-full mt-2 bg-white rounded-lg shadow-lg py-2 min-w-48 z-50">
+                      <div className="px-4 py-2 border-b">
+                        <p className="text-sm font-semibold text-gray-800">
+                          {user.name || user.phone}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          logout();
+                          setShowUserMenu(false);
+                        }}
+                        className="w-full flex items-center gap-2 px-4 py-2 text-red-600 hover:bg-red-50 transition-colors"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Logout
+                      </button>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <Button
+                  onClick={() => navigate("/login")}
+                  className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-2.5 hover:bg-brand-cream-dark transition-all duration-300 hover:scale-105"
+                >
+                  Login
+                </Button>
+              )}
             </div>
 
             {/* Mobile Menu Button */}
