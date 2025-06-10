@@ -21,10 +21,19 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
 
   // Debug log when cart opens
   useEffect(() => {
+    console.log(
+      "Cart component rendered with isOpen:",
+      isOpen,
+      "cartItems:",
+      cartItems,
+    );
     if (isOpen) {
       console.log("Cart opened, current items:", cartItems);
     }
   }, [isOpen, cartItems]);
+
+  // Log every render
+  console.log("Cart component rendering, isOpen:", isOpen);
 
   const handleQuantityChange = (
     itemId: number,
