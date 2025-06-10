@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Navigation } from "@/components/ui/navigation";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { HeroForm } from "@/components/ui/hero-form";
-import { productCategories } from "@/data/products";
+import { productCategories, allProducts } from "@/data/products";
 import { getFeaturedBlogs } from "@/data/blogs";
 import {
   Star,
@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 
 export default function Index() {
+  const [activeTab, setActiveTab] = useState(0);
   const featuredBlogs = getFeaturedBlogs(3);
 
   return (
@@ -115,8 +116,8 @@ export default function Index() {
                 </p>
               </div>
               <a
-                href="#"
-                className="flex items-center gap-2.5 text-brand-cream font-bold"
+                href="/products"
+                className="flex items-center gap-2.5 text-brand-cream font-bold hover:text-brand-cream-dark transition-colors"
               >
                 <span>View all</span>
                 <ArrowRight className="w-5 h-3" />
@@ -131,10 +132,11 @@ export default function Index() {
                     <button
                       type="button"
                       role="tab"
+                      onClick={() => setActiveTab(index)}
                       className={`px-4 py-2 font-bold relative transition-all duration-150 ${
-                        index === 0
+                        index === activeTab
                           ? "bg-red-600 text-brand-cream"
-                          : "bg-gray-900 text-gray-400"
+                          : "bg-gray-900 text-gray-400 hover:bg-gray-800"
                       }`}
                     >
                       {category.name}
@@ -155,47 +157,49 @@ export default function Index() {
             {/* Products Grid */}
             <div className="mt-12 px-3">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                {productCategories[0].products.slice(0, 8).map((product) => (
-                  <Card
-                    key={product.id}
-                    className="bg-transparent border-none text-white flex flex-col"
-                  >
-                    <div className="relative overflow-hidden">
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-[250px] object-cover transition-transform duration-500 hover:scale-105"
-                      />
-                      <div className="absolute top-6 right-0 bg-red-600 text-white font-['Oswald'] text-xs font-bold tracking-wide px-2 py-2 z-10 uppercase">
-                        {product.category}
+                {productCategories[activeTab].products
+                  .slice(0, 8)
+                  .map((product) => (
+                    <Card
+                      key={product.id}
+                      className="bg-transparent border-none text-white flex flex-col group cursor-pointer"
+                    >
+                      <div className="relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-[250px] object-cover transition-transform duration-500 group-hover:scale-105"
+                        />
+                        <div className="absolute top-6 right-0 bg-red-600 text-white font-['Oswald'] text-xs font-bold tracking-wide px-2 py-2 z-10 uppercase">
+                          {productCategories[activeTab].name}
+                        </div>
                       </div>
-                    </div>
-                    <CardContent className="flex-grow pt-4">
-                      <h5 className="text-white text-lg font-bold leading-6 mb-1">
-                        {product.name}
-                      </h5>
-                      <p className="text-white/60 text-sm leading-5 mb-2">
-                        {product.weight}
-                      </p>
-                    </CardContent>
-                    <div className="flex items-center justify-between mt-2 px-6 pb-6">
-                      <div className="font-bold">
-                        <span className="text-white text-xl font-bold leading-7">
-                          ₹{product.price}/-
-                        </span>
-                        {product.originalPrice && (
-                          <span className="text-red-600 font-bold leading-5 ml-2">
-                            <strike>₹{product.originalPrice}/-</strike>
+                      <CardContent className="flex-grow pt-4">
+                        <h5 className="text-white text-lg font-bold leading-6 mb-1">
+                          {product.name}
+                        </h5>
+                        <p className="text-white/60 text-sm leading-5 mb-2">
+                          {product.weight}
+                        </p>
+                      </CardContent>
+                      <div className="flex items-center justify-between mt-2 px-6 pb-6">
+                        <div className="font-bold">
+                          <span className="text-white text-xl font-bold leading-7">
+                            ₹{product.price}/-
                           </span>
-                        )}
+                          {product.originalPrice && (
+                            <span className="text-red-600 font-bold leading-5 ml-2">
+                              <strike>₹{product.originalPrice}/-</strike>
+                            </span>
+                          )}
+                        </div>
+                        <Button className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-2 hover:bg-brand-cream-dark transition-all duration-300">
+                          Add
+                        </Button>
                       </div>
-                      <Button className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-2 hover:bg-brand-cream-dark transition-all duration-300">
-                        Add
-                      </Button>
-                    </div>
-                  </Card>
-                ))}
+                    </Card>
+                  ))}
               </div>
             </div>
           </div>
@@ -209,8 +213,8 @@ export default function Index() {
                 Bestsellers
               </h2>
               <a
-                href="#"
-                className="flex items-center gap-2.5 text-red-600 font-bold"
+                href="/products"
+                className="flex items-center gap-2.5 text-red-600 font-bold hover:text-red-700 transition-colors"
               >
                 <span>View all</span>
                 <ArrowRight className="w-5 h-3" />
@@ -222,13 +226,13 @@ export default function Index() {
               <div className="flex gap-5">
                 {productCategories[2].products.slice(0, 3).map((product) => (
                   <div key={product.id} className="flex-shrink-0 w-[389px]">
-                    <Card className="bg-white flex flex-col h-full">
+                    <Card className="bg-white flex flex-col h-full group cursor-pointer">
                       <div className="relative overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10" />
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-[250px] object-cover transition-transform duration-500 hover:scale-105"
+                          className="w-full h-[250px] object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         <div className="absolute top-6 right-0 bg-red-600 text-white font-['Oswald'] text-xs font-bold tracking-wide px-2 py-2 z-10 uppercase">
                           Best Sellers
@@ -265,9 +269,9 @@ export default function Index() {
 
             {/* Delivery Banner */}
             <div className="mt-20 px-3">
-              <div className="bg-red-600 text-white grid grid-cols-[645px_1fr] items-center px-11 relative">
+              <div className="bg-red-600 text-white grid grid-cols-1 lg:grid-cols-[645px_1fr] items-center px-11 py-8 relative">
                 <div>
-                  <h3 className="font-['Oswald'] text-4xl font-bold leading-12 mb-4 uppercase">
+                  <h3 className="font-['Oswald'] text-2xl lg:text-4xl font-bold leading-tight lg:leading-12 mb-4 uppercase">
                     fast, reliable and fresh quality pork delivered at your
                     doorstep!
                   </h3>
@@ -276,11 +280,11 @@ export default function Index() {
                     your kitchen.
                   </p>
                 </div>
-                <div className="h-[287px] -mt-9 text-right">
+                <div className="h-[287px] text-right hidden lg:block">
                   <img
                     src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/delivery-boy.png"
                     alt="delivery boy"
-                    className="h-full"
+                    className="h-full ml-auto"
                   />
                 </div>
               </div>
@@ -291,7 +295,7 @@ export default function Index() {
         {/* Pork Anatomy Interactive Section */}
         <section className="bg-[#FCF3E8] py-20">
           <div className="max-w-[1232px] mx-auto px-3">
-            <div className="grid grid-cols-[1fr_340px] gap-15">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_340px] gap-15">
               <div className="flex flex-col gap-4">
                 <div className="max-w-[800px] flex items-center">
                   <div className="relative">
@@ -301,7 +305,7 @@ export default function Index() {
                       alt="Pork anatomy front"
                     />
                     {/* Interactive dots */}
-                    <div className="absolute top-2/5 left-[100px] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute top-2/5 left-[100px] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform" />
                   </div>
                   <div className="relative -left-px -top-4">
                     <img
@@ -309,14 +313,14 @@ export default function Index() {
                       className="max-w-full transition-opacity duration-300"
                       alt="Pork anatomy middle"
                     />
-                    <div className="absolute bottom-[-5px] left-[19%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute bottom-[-5px] left-[19%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform" />
                     <div className="relative -left-px -top-4">
                       <img
                         src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/parts/middle-top.png"
                         className="max-w-full transition-opacity duration-300"
                         alt="Pork anatomy middle top"
                       />
-                      <div className="absolute top-[28%] left-[60%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                      <div className="absolute top-[28%] left-[60%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform" />
                     </div>
                   </div>
                   <div className="relative -left-1">
@@ -325,13 +329,13 @@ export default function Index() {
                       className="max-w-full transition-opacity duration-300"
                       alt="Pork anatomy back"
                     />
-                    <div className="absolute top-[35%] left-[10%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2" />
+                    <div className="absolute top-[35%] left-[10%] w-4 h-4 bg-green-600 rounded-full border-2 border-white cursor-pointer transform -translate-x-1/2 -translate-y-1/2 hover:scale-110 transition-transform" />
                   </div>
                 </div>
               </div>
 
               <div className="min-h-[200px] relative">
-                <div className="flex items-center justify-center h-full bg-red-600/20 border text-gray-600 font-medium px-10 text-center">
+                <div className="flex items-center justify-center h-full bg-red-600/20 border border-red-200 text-gray-600 font-medium px-10 text-center">
                   <p>Click on the image to view the products</p>
                 </div>
               </div>
@@ -448,9 +452,9 @@ export default function Index() {
                 ].map((testimonial, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-[1018px] flex items-center justify-center"
+                    className="flex-shrink-0 w-full lg:w-[1018px] flex items-center justify-center"
                   >
-                    <div className="bg-gray-800 px-10 py-12">
+                    <div className="bg-gray-800 px-10 py-12 mx-4">
                       <div className="flex items-center gap-4 text-white/70 font-semibold mb-4">
                         <User className="w-4 h-4" />
                         <span>{testimonial.name}</span>
@@ -471,17 +475,17 @@ export default function Index() {
         {/* Footer */}
         <footer className="bg-brand-dark">
           <div className="max-w-[1232px] mx-auto px-3">
-            <div className="flex justify-between py-10 px-3">
-              <div className="flex gap-10 text-white">
+            <div className="flex flex-col lg:flex-row justify-between py-10 px-3 gap-6">
+              <div className="flex flex-col lg:flex-row gap-10 text-white">
                 <a
-                  href="tel: +918123959702"
-                  className="text-sm font-semibold leading-5"
+                  href="tel:+918123959702"
+                  className="text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   +91-8123959702
                 </a>
                 <a
-                  href="mailto: support@meatdelicacy.com"
-                  className="text-sm font-semibold leading-5"
+                  href="mailto:support@meatdelicacy.com"
+                  className="text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   support@meatdelicacy.com
                 </a>
@@ -490,58 +494,60 @@ export default function Index() {
                 <h6 className="text-white text-sm font-semibold leading-5">
                   Follow Us
                 </h6>
-                <a href="#" className="text-blue-600 underline">
+                <a href="#" className="hover:scale-110 transition-transform">
                   <img
                     src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/icons/facebook.svg"
                     alt="Facebook"
+                    className="w-6 h-6"
                   />
                 </a>
-                <a href="#" className="text-blue-600 underline">
+                <a href="#" className="hover:scale-110 transition-transform">
                   <img
                     src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/icons/instagram.svg"
                     alt="Instagram"
+                    className="w-6 h-6"
                   />
                 </a>
               </div>
             </div>
 
-            <ul className="flex justify-center gap-[70px] border-t border-brand-cream/40 py-9 px-3">
+            <ul className="flex flex-wrap justify-center gap-[70px] border-t border-brand-cream/40 py-9 px-3">
               <li>
                 <a
-                  href="#"
-                  className="text-white text-sm font-semibold leading-5"
+                  href="/contact"
+                  className="text-white text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   Contact Us
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-white text-sm font-semibold leading-5"
+                  href="/privacy"
+                  className="text-white text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   Privacy Policy
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-white text-sm font-semibold leading-5"
+                  href="/terms"
+                  className="text-white text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   Term & Condition
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-white text-sm font-semibold leading-5"
+                  href="/refund"
+                  className="text-white text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   Refund & Return Policy
                 </a>
               </li>
               <li>
                 <a
-                  href="#"
-                  className="text-white text-sm font-semibold leading-5"
+                  href="/shipping"
+                  className="text-white text-sm font-semibold leading-5 hover:text-brand-cream transition-colors"
                 >
                   Shipping Policy
                 </a>
