@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
 import { useNavigate } from "react-router-dom";
+import { Cart } from "./Cart";
 
 export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
