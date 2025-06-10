@@ -27,7 +27,8 @@ interface CartContextType {
   getTotalItems: () => number;
   getTotalPrice: () => number;
   isCartOpen: boolean;
-  setIsCartOpen: (open: boolean) => void;
+  openCart: () => void;
+  closeCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -44,24 +45,28 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  // Load cart from localStorage
+  // Load cart from localStorage on mount
   useEffect(() => {
     try {
       const savedCart = localStorage.getItem("meatDelicacyCart");
       if (savedCart) {
         const parsed = JSON.parse(savedCart);
-        console.log("Loading cart from localStorage:", parsed);
         setCartItems(parsed);
+        console.log("Cart loaded from localStorage:", parsed);
       }
     } catch (error) {
-      console.error("Error loading cart:", error);
+      console.error("Error loading cart from localStorage:", error);
     }
   }, []);
 
-  // Save cart to localStorage
+  // Save cart to localStorage whenever it changes
   useEffect(() => {
-    console.log("Saving cart to localStorage:", cartItems);
-    localStorage.setItem("meatDelicacyCart", JSON.stringify(cartItems));
+    try {
+      localStorage.setItem("meatDelicacyCart", JSON.stringify(cartItems));
+      console.log("Cart saved to localStorage:", cartItems);
+    } catch (error) {
+      console.error("Error saving cart to localStorage:", error);
+    }
   }, [cartItems]);
 
   const addToCart = (
@@ -69,12 +74,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     quantity = 1,
     selectedWeight?: string,
   ) => {
-    console.log("CartContext - Adding to cart:", {
-      product,
-      quantity,
-      selectedWeight,
-      currentCartItems: cartItems,
-    });
+    console.log("Adding to cart:", { product, quantity, selectedWeight });
 
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
@@ -90,17 +90,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             ? { ...item, quantity: item.quantity + quantity }
             : item,
         );
-        console.log("Updated existing item, new cart:", updatedItems);
+        console.log("Updated existing item:", updatedItems);
         return updatedItems;
       } else {
         const newItem: CartItem = {
           id: Date.now() + Math.random(),
           product,
           quantity,
-          selectedWeight,
+          selectedWeight: selectedWeight || "1kg",
         };
         const updatedItems = [...prevItems, newItem];
-        console.log("Added new item, new cart:", updatedItems);
+        console.log("Added new item:", updatedItems);
         return updatedItems;
       }
     });
@@ -111,9 +111,9 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const removeFromCart = (itemId: number) => {
     setCartItems((prevItems) => {
-      const newItems = prevItems.filter((item) => item.id !== itemId);
-      console.log("Removed item, new cart:", newItems);
-      return newItems;
+      const updatedItems = prevItems.filter((item) => item.id !== itemId);
+      console.log("Removed item:", updatedItems);
+      return updatedItems;
     });
   };
 
@@ -124,23 +124,21 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     }
 
     setCartItems((prevItems) => {
-      const newItems = prevItems.map((item) =>
+      const updatedItems = prevItems.map((item) =>
         item.id === itemId ? { ...item, quantity } : item,
       );
-      console.log("Updated quantity, new cart:", newItems);
-      return newItems;
+      console.log("Updated quantity:", updatedItems);
+      return updatedItems;
     });
   };
 
   const clearCart = () => {
-    console.log("Clearing cart");
     setCartItems([]);
+    console.log("Cart cleared");
   };
 
   const getTotalItems = () => {
-    const total = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    console.log("Total items:", total, "from cart:", cartItems);
-    return total;
+    return cartItems.reduce((sum, item) => sum + item.quantity, 0);
   };
 
   const getTotalPrice = () => {
@@ -148,6 +146,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       const price = item.product.discountPrice || item.product.price;
       return total + price * item.quantity;
     }, 0);
+  };
+
+  const openCart = () => {
+    console.log("Opening cart");
+    setIsCartOpen(true);
+  };
+
+  const closeCart = () => {
+    console.log("Closing cart");
+    setIsCartOpen(false);
   };
 
   const value: CartContextType = {
@@ -159,7 +167,8 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     getTotalItems,
     getTotalPrice,
     isCartOpen,
-    setIsCartOpen,
+    openCart,
+    closeCart,
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
