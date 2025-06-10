@@ -16,8 +16,22 @@ export const HeroSection = () => {
   const [selectedProduct, setSelectedProduct] = useState("");
   const [selectedQuantity, setSelectedQuantity] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
+  const [showBulkOrder, setShowBulkOrder] = useState(false);
   const { addToCart } = useCart();
   const { location, isWithinRadius } = useLocation();
+
+  // Weight options in grams
+  const weightOptions = [
+    { value: "250", label: "250gm" },
+    { value: "500", label: "500gm" },
+    { value: "1000", label: "1kg" },
+    { value: "2000", label: "2kg" },
+  ];
+
+  const timeSlots = [
+    { value: "12:00 PM to 03:00 PM", label: "12:00 PM to 03:00 PM" },
+    { value: "04:00 PM to 08:00 PM", label: "04:00 PM to 08:00 PM" },
+  ];
 
   const handleOrderNow = () => {
     if (!selectedProduct || !selectedQuantity || !selectedTimeSlot) {
@@ -26,7 +40,9 @@ export const HeroSection = () => {
     }
 
     if (!isWithinRadius) {
-      alert("Sorry, we currently deliver within 5km radius only");
+      alert(
+        "Sorry, we currently deliver within 5km radius only. Delivery time: 90 minutes",
+      );
       return;
     }
 
@@ -39,154 +55,262 @@ export const HeroSection = () => {
     );
 
     if (product) {
-      addToCart(product, parseInt(selectedQuantity));
+      addToCart(product, 1, selectedQuantity + "g");
       alert(
-        `${product.name} added to cart! Estimated delivery: ${selectedTimeSlot}`,
+        `${product.name} (${selectedQuantity}g) added to cart! Estimated delivery: ${selectedTimeSlot} (90 minutes within 5km)`,
       );
+
+      // Reset form
+      setSelectedProduct("");
+      setSelectedQuantity("");
+      setSelectedTimeSlot("");
     }
   };
 
+  const BulkOrderForm = () => (
+    <div className="bg-[#C72C41]/60 backdrop-blur-sm border border-[#C72C41]/50 p-6 rounded-lg mt-4">
+      <h3 className="text-white font-bold text-lg mb-4">Bulk Order Request</h3>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          placeholder="Your Name"
+          className="px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
+        />
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          className="px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
+        />
+        <input
+          type="text"
+          placeholder="Product Required"
+          className="px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
+        />
+        <input
+          type="text"
+          placeholder="Quantity (e.g., 50kg)"
+          className="px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
+        />
+        <textarea
+          placeholder="Additional Requirements"
+          rows={3}
+          className="md:col-span-2 px-4 py-3 rounded bg-white/10 border border-white/20 text-white placeholder-white/60"
+        />
+      </div>
+      <div className="flex gap-3 mt-4">
+        <Button
+          onClick={() => {
+            alert("Bulk order request submitted! We'll contact you soon.");
+            setShowBulkOrder(false);
+          }}
+          className="bg-[#F8E3C9] text-[#303132] font-bold hover:bg-[#F8E3C9]/90"
+        >
+          Submit Request
+        </Button>
+        <Button
+          onClick={() => setShowBulkOrder(false)}
+          variant="outline"
+          className="border-white/20 text-white hover:bg-white/10"
+        >
+          Cancel
+        </Button>
+      </div>
+    </div>
+  );
+
   return (
-    <section className="relative bg-[#262729] min-h-[650px] flex items-center">
+    <section className="relative bg-[#262729] min-h-[650px]">
       {/* Background Image with Gradient Overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage:
-            "url('https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp')",
-        }}
-      >
-        <div className="absolute inset-0 bg-gradient-to-r from-[#262626] via-[#262626]/80 to-transparent"></div>
+      <div className="absolute inset-0">
+        <img
+          src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
+          alt="banner figure"
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#262626] via-[#262626]/50 to-transparent" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-3 w-full">
-        <div className="flex flex-wrap -mx-3">
-          <div className="w-full lg:w-7/12 px-3">
-            <div className="text-center lg:text-left relative">
-              {/* Main Heading */}
-              <h1 className="text-[#F8E3C9]/50 font-oswald text-xl md:text-2xl font-medium uppercase mb-2 leading-9">
-                Delivered at your door step
-              </h1>
+      {/* Content Container */}
+      <div className="relative z-10 flex items-center min-h-[650px]">
+        <div className="max-w-7xl mx-auto px-3 w-full">
+          <div className="flex flex-wrap -mx-3">
+            {/* Left Content */}
+            <div className="w-full lg:w-7/12 px-3 ml-auto">
+              <div className="text-center relative z-10">
+                {/* Main Heading */}
+                <h1 className="text-[rgba(248,227,201,0.5)] font-oswald text-2xl font-medium uppercase mb-2 leading-9">
+                  Delivered at your door step
+                </h1>
 
-              {/* Large Title with Gradient */}
-              <h2
-                className="font-oswald text-6xl md:text-8xl lg:text-[130px] font-bold uppercase leading-none mb-8 text-center lg:text-left"
-                style={{
-                  background:
-                    "linear-gradient(90.01deg, #F8E3C9 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-              >
-                Fresh pork
-              </h2>
+                {/* Large Title with Gradient Text */}
+                <h2
+                  className="font-oswald text-[130px] font-bold uppercase leading-[146px] text-center"
+                  style={{
+                    background:
+                      "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    backgroundClip: "text",
+                  }}
+                >
+                  Fresh pork
+                </h2>
 
-              {/* Meat Banner Image */}
-              <div className="w-full max-w-[440px] mx-auto lg:mx-0 -mt-24 relative">
-                <img
-                  src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
-                  alt="banner meat"
-                  className="w-full h-auto"
-                />
+                {/* Meat Banner Image Overlay */}
+                <div className="w-[440px] mx-auto -mt-[92.8px] relative">
+                  <img
+                    src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
+                    alt="banner meat"
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Order Form */}
-        <div className="flex flex-wrap -mx-3 mt-8">
-          <div className="w-full px-3">
-            <form className="max-w-6xl">
-              <div className="bg-[#C72C41]/50 backdrop-blur-sm border border-[#C72C41]/40 p-6 lg:p-8 relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                  {/* Product Selection */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wide">
-                      <Search className="w-3 h-3" />
-                      Looking For
-                    </label>
-                    <Select
-                      value={selectedProduct}
-                      onValueChange={setSelectedProduct}
-                    >
-                      <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold">
-                        <SelectValue placeholder="Pick your meat" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {productCategories.map((category) => (
-                          <div key={category.id}>
-                            {category.products.map((product) => (
-                              <SelectItem
-                                key={product.id}
-                                value={product.id.toString()}
-                              >
-                                {product.name}
-                              </SelectItem>
-                            ))}
-                          </div>
-                        ))}
-                      </SelectContent>
-                    </Select>
+          {/* Order Form */}
+          <div className="flex flex-wrap -mx-3">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleOrderNow();
+              }}
+              className="w-full px-3"
+            >
+              <div className="w-11/12 ml-auto">
+                <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10">
+                  {/* Delivery Info Banner */}
+                  <div className="mb-4 text-center">
+                    <p className="text-[#F8E3C9] text-sm font-semibold">
+                      🚀 90-minute delivery within 5km radius
+                    </p>
                   </div>
 
-                  {/* Quantity Selection */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wide">
-                      <Package className="w-3 h-3" />
-                      Quantity
-                    </label>
-                    <Select
-                      value={selectedQuantity}
-                      onValueChange={setSelectedQuantity}
-                    >
-                      <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold">
-                        <SelectValue placeholder="Choose quantity" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {[1, 2, 3, 4, 5].map((qty) => (
-                          <SelectItem key={qty} value={qty.toString()}>
-                            {qty} {qty === 1 ? "piece" : "pieces"}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                    {/* Product Selection */}
+                    <div>
+                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                        <Search className="w-3 h-3" />
+                        LOOKING FOR
+                      </span>
+                      <Select
+                        value={selectedProduct}
+                        onValueChange={setSelectedProduct}
+                      >
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                          <SelectValue>
+                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                              {selectedProduct
+                                ? productCategories
+                                    .flatMap((cat) => cat.products)
+                                    .find(
+                                      (p) =>
+                                        p.id.toString() === selectedProduct,
+                                    )?.name
+                                : "Pick your meat"}
+                            </span>
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {productCategories.map((category) => (
+                            <div key={category.id}>
+                              {category.products.map((product) => (
+                                <SelectItem
+                                  key={product.id}
+                                  value={product.id.toString()}
+                                >
+                                  {product.name}
+                                </SelectItem>
+                              ))}
+                            </div>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Quantity Selection */}
+                    <div>
+                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                        <Package className="w-3 h-3" />
+                        Quantity
+                      </span>
+                      <Select
+                        value={selectedQuantity}
+                        onValueChange={setSelectedQuantity}
+                      >
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                          <SelectValue>
+                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                              {selectedQuantity
+                                ? weightOptions.find(
+                                    (w) => w.value === selectedQuantity,
+                                  )?.label
+                                : "Choose quantity"}
+                            </span>
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {weightOptions.map((weight) => (
+                            <SelectItem key={weight.value} value={weight.value}>
+                              {weight.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Time Slot Selection */}
+                    <div>
+                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                        <Clock className="w-3 h-3" />
+                        Time slot
+                      </span>
+                      <Select
+                        value={selectedTimeSlot}
+                        onValueChange={setSelectedTimeSlot}
+                      >
+                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded">
+                          <SelectValue>
+                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                              {selectedTimeSlot || "Pick time slot"}
+                            </span>
+                          </SelectValue>
+                        </SelectTrigger>
+                        <SelectContent>
+                          {timeSlots.map((slot) => (
+                            <SelectItem key={slot.value} value={slot.value}>
+                              {slot.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Order Button */}
+                    <div>
+                      <Button
+                        type="submit"
+                        className="w-full bg-[#F8E3C9] text-[#303132] font-bold text-sm uppercase hover:bg-[#F8E3C9]/90 transition-all duration-300 h-11 px-6"
+                      >
+                        Order now
+                      </Button>
+                    </div>
                   </div>
 
-                  {/* Time Slot Selection */}
-                  <div className="space-y-2">
-                    <label className="flex items-center gap-2 text-white/60 text-xs font-semibold uppercase tracking-wide">
-                      <Clock className="w-3 h-3" />
-                      Time slot
-                    </label>
-                    <Select
-                      value={selectedTimeSlot}
-                      onValueChange={setSelectedTimeSlot}
+                  {/* Bulk Order Toggle */}
+                  <div className="mt-4 text-center">
+                    <button
+                      type="button"
+                      onClick={() => setShowBulkOrder(!showBulkOrder)}
+                      className="text-[#F8E3C9] text-sm hover:underline"
                     >
-                      <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold">
-                        <SelectValue placeholder="Pick time slot" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="12:00 PM to 03:00 PM">
-                          12:00 PM to 03:00 PM
-                        </SelectItem>
-                        <SelectItem value="04:00 PM to 08:00 PM">
-                          04:00 PM to 08:00 PM
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Order Button */}
-                  <div className="flex items-end">
-                    <Button
-                      onClick={handleOrderNow}
-                      className="w-full bg-[#F8E3C9] text-[#303132] font-bold text-sm uppercase hover:bg-[#F8E3C9]/90 transition-all duration-300 h-11"
-                    >
-                      Order now
-                    </Button>
+                      Need bulk quantities? Click here
+                    </button>
                   </div>
                 </div>
+
+                {/* Bulk Order Form */}
+                {showBulkOrder && <BulkOrderForm />}
               </div>
             </form>
           </div>
