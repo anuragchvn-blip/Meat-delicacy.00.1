@@ -236,17 +236,6 @@ export const ProductsSection = () => {
             )}
           </div>
         </div>
-
-        {/* Debug Info */}
-        <div className="mt-8 p-4 bg-[#363739] rounded text-white text-sm">
-          <p>
-            <strong>Debug Info:</strong>
-          </p>
-          <p>Active Category: {currentCategory?.name}</p>
-          <p>Sort By: {sortBy}</p>
-          <p>Products Count: {sortedProducts.length}</p>
-          <p>Cart Items: {cartItems.length}</p>
-        </div>
       </div>
     </section>
   );
