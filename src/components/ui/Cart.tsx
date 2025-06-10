@@ -90,11 +90,11 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
                   {cartItems.map((item) => (
                     <div
                       key={item.id}
-                      className="grid grid-cols-[112px_1fr] gap-5 text-white p-4 bg-[#363739] rounded-lg"
+                      className="grid grid-cols-[112px_1fr] gap-5 text-white"
                     >
                       {/* Product Image */}
-                      <div className="relative overflow-hidden rounded">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                      <div className="relative overflow-hidden">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-black/0 z-10"></div>
                         <img
                           src={item.product.image}
                           alt={item.product.name}
@@ -103,15 +103,18 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
                       </div>
 
                       {/* Product Details */}
-                      <div className="flex flex-col justify-between">
-                        <div>
-                          <h5 className="text-brand-cream font-bold leading-5 mb-1">
-                            {item.product.name}
-                          </h5>
-                          <p className="text-white/60 text-xs leading-4">
-                            {item.selectedWeight || "1kg"}
-                          </p>
-                        </div>
+                      <div className="flex flex-col">
+                        <h5 className="text-brand-cream font-bold leading-5 mb-1">
+                          {item.product.name}
+                        </h5>
+                        <p className="text-white/60 text-xs leading-4 flex-grow">
+                          {item.selectedWeight || "1kg"}
+                        </p>
+                        <input
+                          type="hidden"
+                          name={`kgs_or_gramss_${item.product.id}`}
+                          value={item.selectedWeight || "1kg"}
+                        />
 
                         <div className="flex justify-between items-center mt-2">
                           {/* Price */}
@@ -133,28 +136,33 @@ export const Cart = ({ isOpen, onClose }: CartProps) => {
 
                           {/* Quantity Controls */}
                           <div className="flex items-center justify-center">
-                            <button
-                              onClick={() =>
-                                handleQuantityChange(item.id, "decrement")
-                              }
-                              className="bg-[#E2D1BB] text-[#262729] w-6 h-6 flex items-center justify-center rounded text-center hover:bg-[#D4C3A6] transition-colors"
+                            <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleQuantityChange(item.id, "decrement");
+                              }}
+                              href="#"
+                              className="bg-[#E2D1BB] text-[#262729] w-6 h-6 flex items-center justify-center rounded-lg text-center hover:bg-[#D4C3A6] transition-colors"
                             >
-                              <Minus className="w-4 h-4" />
-                            </button>
+                              <span className="leading-6 text-center">-</span>
+                            </a>
                             <input
+                              name="quantity"
                               type="text"
                               value={item.quantity}
                               readOnly
-                              className="w-12 h-6 text-center font-bold bg-transparent text-white border border-[#E2D1BB] mx-1"
+                              className="w-12 h-5 text-center font-bold bg-transparent text-white border border-[#E2D1BB] mx-1"
                             />
-                            <button
-                              onClick={() =>
-                                handleQuantityChange(item.id, "increment")
-                              }
-                              className="bg-[#E2D1BB] text-[#262729] w-6 h-6 flex items-center justify-center rounded text-center hover:bg-[#D4C3A6] transition-colors"
+                            <a
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleQuantityChange(item.id, "increment");
+                              }}
+                              href="#"
+                              className="bg-[#E2D1BB] text-[#262729] w-6 h-6 flex items-center justify-center rounded-lg text-center hover:bg-[#D4C3A6] transition-colors"
                             >
-                              <Plus className="w-4 h-4" />
-                            </button>
+                              <span className="leading-6 text-center">+</span>
+                            </a>
                           </div>
                         </div>
                       </div>
