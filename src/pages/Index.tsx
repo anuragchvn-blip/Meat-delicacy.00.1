@@ -82,8 +82,10 @@ export default function Index() {
               </div>
 
               {/* Ordering Form */}
-              <div className="flex flex-wrap -mx-3">
-                <HeroForm className="w-full px-3" />
+              <div className="flex flex-wrap -mx-3 mt-8">
+                <div className="w-full px-3">
+                  <HeroForm className="w-full" />
+                </div>
               </div>
             </div>
           </div>
