@@ -184,12 +184,34 @@ export function Navigation() {
                   </a>
                 </li>
                 <li className="pt-2">
-                  <Button
-                    className="w-full bg-brand-cream text-brand-dark font-bold text-sm uppercase hover:bg-brand-cream-dark"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    Login
-                  </Button>
+                  {user ? (
+                    <div className="space-y-2">
+                      <div className="px-4 py-2 text-white/70 text-sm">
+                        Welcome, {user.name || user.phone}
+                      </div>
+                      <Button
+                        onClick={() => {
+                          logout();
+                          setIsMenuOpen(false);
+                        }}
+                        variant="outline"
+                        className="w-full border-white/20 text-white hover:bg-white/10"
+                      >
+                        <LogOut className="w-4 h-4 mr-2" />
+                        Logout
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button
+                      onClick={() => {
+                        navigate("/login");
+                        setIsMenuOpen(false);
+                      }}
+                      className="w-full bg-brand-cream text-brand-dark font-bold text-sm uppercase hover:bg-brand-cream-dark"
+                    >
+                      Login
+                    </Button>
+                  )}
                 </li>
               </ul>
             </div>
