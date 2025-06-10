@@ -310,6 +310,23 @@ export const HeroSection = () => {
                       Need bulk quantities? Click here
                     </button>
                   </div>
+
+                  {/* Test Cart Button */}
+                  <div className="mt-4 text-center">
+                    <Button
+                      onClick={() => {
+                        console.log("Test button clicked");
+                        const testProduct = productCategories[0]?.products[0];
+                        if (testProduct) {
+                          addToCart(testProduct, 1, "1kg");
+                          alert("Test product added to cart!");
+                        }
+                      }}
+                      className="bg-green-600 text-white font-bold text-sm px-4 py-2 hover:bg-green-700"
+                    >
+                      Test Add to Cart
+                    </Button>
+                  </div>
                 </div>
 
                 {/* Bulk Order Form */}
