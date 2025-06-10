@@ -78,7 +78,7 @@ export function HeroForm({ className }: HeroFormProps) {
       >
         <div className="grid grid-cols-4 gap-4 bg-red-600/50 backdrop-blur-sm border border-red-600/40 px-8 py-6 relative z-10">
           {/* Product Selection */}
-          <div className="grid-item">
+          <div>
             <span className="flex items-center text-white/60 text-xs font-semibold uppercase gap-1.5 mb-2">
               <Search className="w-3 h-3" />
               Looking For
@@ -103,7 +103,7 @@ export function HeroForm({ className }: HeroFormProps) {
           </div>
 
           {/* Quantity Selection */}
-          <div className="grid-item">
+          <div>
             <span className="flex items-center text-white/60 text-xs font-semibold uppercase gap-1.5 mb-2">
               <User className="w-3 h-3" />
               Quantity
@@ -128,7 +128,7 @@ export function HeroForm({ className }: HeroFormProps) {
           </div>
 
           {/* Time Slot Selection */}
-          <div className="grid-item">
+          <div>
             <span className="flex items-center text-white/60 text-xs font-semibold uppercase gap-1.5 mb-2">
               <Clock className="w-3 h-3" />
               Time Slot
@@ -153,7 +153,7 @@ export function HeroForm({ className }: HeroFormProps) {
           </div>
 
           {/* Order Button */}
-          <div className="grid-item">
+          <div>
             <Button
               type="submit"
               className="bg-brand-cream text-brand-dark font-bold text-sm uppercase px-6 py-3 hover:bg-brand-cream-dark transition-all duration-300 capitalize"
