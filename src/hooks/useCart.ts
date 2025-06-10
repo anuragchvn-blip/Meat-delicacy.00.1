@@ -34,6 +34,7 @@ export const useCart = () => {
     quantity: number = 1,
     selectedWeight?: string,
   ) => {
+    console.log("Adding to cart:", { product, quantity, selectedWeight });
     setCartItems((prevItems) => {
       const existingItem = prevItems.find(
         (item) =>
@@ -42,22 +43,24 @@ export const useCart = () => {
       );
 
       if (existingItem) {
-        return prevItems.map((item) =>
+        const updatedItems = prevItems.map((item) =>
           item.product.id === product.id &&
           item.selectedWeight === selectedWeight
             ? { ...item, quantity: item.quantity + quantity }
             : item,
         );
+        console.log("Updated cart items:", updatedItems);
+        return updatedItems;
       } else {
-        return [
-          ...prevItems,
-          {
-            id: Date.now(),
-            product,
-            quantity,
-            selectedWeight,
-          },
-        ];
+        const newItem = {
+          id: Date.now(),
+          product,
+          quantity,
+          selectedWeight,
+        };
+        const updatedItems = [...prevItems, newItem];
+        console.log("New cart items:", updatedItems);
+        return updatedItems;
       }
     });
   };
