@@ -77,13 +77,19 @@ export const MarketingBanner: React.FC<MarketingBannerProps> = ({
     },
   ];
 
-  // Auto-rotate banners every 6 seconds
+  // Auto-rotate banners every 8 seconds with safer handling
   useEffect(() => {
     if (banners.length > 1 && isVisible) {
       const interval = setInterval(() => {
-        setCurrentBanner((prev) => (prev + 1) % banners.length);
-      }, 6000);
-      return () => clearInterval(interval);
+        setCurrentBanner((prev) => {
+          const next = (prev + 1) % banners.length;
+          return next;
+        });
+      }, 8000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [banners.length, isVisible]);
 

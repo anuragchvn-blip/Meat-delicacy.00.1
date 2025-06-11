@@ -1,8 +1,6 @@
 import React from "react";
 import { Truck, Clock, Shield, MapPin } from "lucide-react";
-import { GoogleMap } from "../ui/GoogleMap";
-import { StaticMap } from "../ui/StaticMap";
-import { ErrorBoundary } from "../ui/ErrorBoundary";
+import { SafeMap } from "../ui/SafeMap";
 import { DeliveryZoneBanner } from "../ui/MarketingBanner";
 import { useLocation } from "../../hooks/useLocation";
 
@@ -25,23 +23,12 @@ export const GoogleMapsSection = () => {
 
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 items-start">
           <div>
-            <ErrorBoundary
-              fallback={
-                <StaticMap
-                  height="500px"
-                  showDirections={true}
-                  showStoreInfo={true}
-                  className="rounded-xl overflow-hidden shadow-lg"
-                />
-              }
-            >
-              <GoogleMap
-                height="500px"
-                showDirections={true}
-                showStoreInfo={true}
-                className="rounded-xl overflow-hidden shadow-lg"
-              />
-            </ErrorBoundary>
+            <SafeMap
+              height="500px"
+              showDirections={true}
+              showStoreInfo={true}
+              className="rounded-xl overflow-hidden shadow-lg"
+            />
           </div>
 
           <div className="space-y-8">
