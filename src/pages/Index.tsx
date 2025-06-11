@@ -16,12 +16,10 @@ const Index = () => {
       <main className="pt-[80px]">
         <HeroSection />
         <ProductsSection />
-        <BestsellersSection />
-        <AnatomySection />
-        <BlogSection />
-        <TestimonialsSection />
-      </main>
-      <Footer />
+      <BestsellersSection />
+      <TestimonialsSection />
+      <BlogSection />
+      <GoogleMapsSection />
     </div>
   );
 };
