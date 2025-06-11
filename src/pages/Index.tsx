@@ -8,14 +8,12 @@ import { TestimonialsSection } from "../components/sections/TestimonialsSection"
 import { GoogleMapsSection } from "../components/sections/GoogleMapsSection";
 import { Footer } from "../components/ui/Footer";
 import { SEO } from "../components/SEO";
-import { ErrorMonitor } from "../components/ui/ErrorMonitor";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-[#262729]">
       <SEO />
       <Navigation />
-      <ErrorMonitor />
       <main className="pt-[80px]">
         <HeroSection />
         <ProductsSection />
