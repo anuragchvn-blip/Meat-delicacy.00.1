@@ -39,9 +39,10 @@ export const HeroSection = () => {
       return;
     }
 
-    if (!isWithinRadius) {
+    const deliveryInfo = getDeliveryInfo();
+    if (!deliveryInfo.available) {
       alert(
-        "Sorry, we currently deliver within 5km radius only. Delivery time: 90 minutes",
+        `${deliveryInfo.message}. We deliver within 5km radius from Hommadevanahalli, Bangalore.`,
       );
       return;
     }
