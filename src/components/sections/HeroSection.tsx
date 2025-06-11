@@ -1,5 +1,16 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Badge } from "../ui/badge";
+import { Truck, Clock, Shield, MapPin } from "lucide-react";
+import { useLocation } from "../../hooks/useLocation";
+import { useCart } from "../../hooks/useCart";
+import {
+  MarketingBanner,
+  FloatingPromoBanner,
+  DeliveryZoneBanner,
+} from "../ui/MarketingBanner";
+import { GoogleMap } from "../ui/GoogleMap";
 import {
   Select,
   SelectContent,
@@ -7,10 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { useCart } from "../../contexts/CartContext";
-import { useLocation } from "../../hooks/useLocation";
 import { productCategories } from "../../data/products";
-import { Search, Package, Clock } from "lucide-react";
+import { Search, Package } from "lucide-react";
 
 export const HeroSection = () => {
   const [selectedProduct, setSelectedProduct] = useState("");
@@ -131,231 +140,238 @@ export const HeroSection = () => {
           <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#C72C41]/10 rounded-full blur-3xl"></div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-[#F8E3C9]/5 to-[#C72C41]/5 rounded-full blur-3xl"></div>
         </div>
-        <img
-          src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
-          alt="banner figure"
-          className="w-full h-full object-cover"
-        />
-        {/* Linear gradient overlay to match original design */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#262626] from-[11.35%] via-[#262626] via-[50.75%] to-transparent to-[101%]"></div>
-      </div>
 
-      {/* Content Container */}
-      <div className="relative z-10 flex items-center min-h-[650px]">
-        <div className="max-w-[1232px] mx-auto px-3 w-full">
-          <div className="flex flex-wrap -mx-3">
-            {/* Centered content container */}
-            <div className="w-full px-3 flex items-center justify-center min-h-[650px]">
-              <div className="text-center relative z-10 max-w-4xl mx-auto">
-                {/* Subtitle */}
-                <h1 className="text-[rgba(248,227,201,0.5)] font-oswald text-2xl font-medium uppercase mb-2 leading-9">
-                  Delivered at your door step
-                </h1>
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <img
+            src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
+            alt="banner figure"
+            className="w-full h-full object-cover"
+          />
+          {/* Linear gradient overlay to match original design */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#262626] from-[11.35%] via-[#262626] via-[50.75%] to-transparent to-[101%]"></div>
+        </div>
 
-                {/* Main heading with gradient text */}
-                <h2
-                  className="font-oswald text-6xl md:text-8xl lg:text-[130px] font-bold uppercase leading-tight lg:leading-[146px] text-center mb-0"
-                  style={{
-                    background:
-                      "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent",
-                    backgroundClip: "text",
-                  }}
-                >
-                  Fresh pork
-                </h2>
+        {/* Content Container */}
+        <div className="relative z-10 flex items-center min-h-[650px] w-full">
+          <div className="max-w-[1232px] mx-auto px-3 w-full">
+            <div className="flex flex-wrap -mx-3">
+              {/* Centered content container */}
+              <div className="w-full px-3 flex items-center justify-center min-h-[650px]">
+                <div className="text-center relative z-10 max-w-4xl mx-auto">
+                  {/* Subtitle */}
+                  <h1 className="text-[rgba(248,227,201,0.5)] font-oswald text-2xl font-medium uppercase mb-2 leading-9">
+                    Delivered at your door step
+                  </h1>
 
-                {/* Meat Banner Image Overlay - positioned over text */}
-                <div className="w-full max-w-[440px] mx-auto -mt-[40px] lg:-mt-[92.8px] relative">
-                  <img
-                    src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
-                    alt="banner meat"
-                    className="w-full h-auto"
-                  />
+                  {/* Main heading with gradient text */}
+                  <h2
+                    className="font-oswald text-6xl md:text-8xl lg:text-[130px] font-bold uppercase leading-tight lg:leading-[146px] text-center mb-0"
+                    style={{
+                      background:
+                        "linear-gradient(90.01deg, rgb(248, 227, 201) 0.01%, rgba(226, 209, 187, 0.64) 105.98%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                      backgroundClip: "text",
+                    }}
+                  >
+                    Fresh pork
+                  </h2>
+
+                  {/* Meat Banner Image Overlay - positioned over text */}
+                  <div className="w-full max-w-[440px] mx-auto -mt-[40px] lg:-mt-[92.8px] relative">
+                    <img
+                      src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/mdc-banner.png"
+                      alt="banner meat"
+                      className="w-full h-auto"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Order Form positioned at bottom center */}
-          <div className="flex flex-wrap -mx-3 absolute bottom-8 left-0 right-0">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleOrderNow();
-              }}
-              className="w-full px-3"
-            >
-              {/* Centered form container */}
-              <div className="max-w-5xl mx-auto">
-                <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10 rounded-lg">
-                  {/* Delivery Info Banner */}
-                  <div className="mb-4 text-center">
-                    {loading ? (
-                      <p className="text-[#F8E3C9] text-sm font-semibold">
-                        📍 Detecting your location...
-                      </p>
-                    ) : (
-                      <p className="text-[#F8E3C9] text-sm font-semibold">
-                        {isWithinRadius ? (
-                          <>
-                            🚀 {getDeliveryInfo().estimatedTime} delivery
-                            {location.distanceFromStore && (
-                              <span className="text-white/70">
-                                {" "}
-                                ({getDeliveryInfo().distance} from
-                                Hommadevanahalli)
+            {/* Order Form positioned at bottom center */}
+            <div className="flex flex-wrap -mx-3 absolute bottom-8 left-0 right-0">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleOrderNow();
+                }}
+                className="w-full px-3"
+              >
+                {/* Centered form container */}
+                <div className="max-w-5xl mx-auto">
+                  <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10 rounded-lg">
+                    {/* Delivery Info Banner */}
+                    <div className="mb-4 text-center">
+                      {loading ? (
+                        <p className="text-[#F8E3C9] text-sm font-semibold">
+                          📍 Detecting your location...
+                        </p>
+                      ) : (
+                        <p className="text-[#F8E3C9] text-sm font-semibold">
+                          {isWithinRadius ? (
+                            <>
+                              🚀 {getDeliveryInfo().estimatedTime} delivery
+                              {location.distanceFromStore && (
+                                <span className="text-white/70">
+                                  {" "}
+                                  ({getDeliveryInfo().distance} from
+                                  Hommadevanahalli)
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              📍 90-minute delivery within 5km radius from
+                              Hommadevanahalli
+                              {location.distanceFromStore && (
+                                <span className="text-yellow-400">
+                                  {" "}
+                                  (You're {getDeliveryInfo().distance} away)
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Form Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
+                      {/* Product Selection */}
+                      <div>
+                        <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                          <Search className="w-3 h-3" />
+                          LOOKING FOR
+                        </span>
+                        <Select
+                          value={selectedProduct}
+                          onValueChange={setSelectedProduct}
+                        >
+                          <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
+                            <SelectValue>
+                              <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                                {selectedProduct
+                                  ? productCategories
+                                      .flatMap((cat) => cat.products)
+                                      .find(
+                                        (p) =>
+                                          p.id.toString() === selectedProduct,
+                                      )?.name
+                                  : "Pick your meat"}
                               </span>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            📍 90-minute delivery within 5km radius from
-                            Hommadevanahalli
-                            {location.distanceFromStore && (
-                              <span className="text-yellow-400">
-                                {" "}
-                                (You're {getDeliveryInfo().distance} away)
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            {productCategories.map((category) => (
+                              <div key={category.id}>
+                                {category.products.map((product) => (
+                                  <SelectItem
+                                    key={product.id}
+                                    value={product.id.toString()}
+                                  >
+                                    {product.name}
+                                  </SelectItem>
+                                ))}
+                              </div>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Quantity Selection */}
+                      <div>
+                        <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                          <Package className="w-3 h-3" />
+                          Quantity
+                        </span>
+                        <Select
+                          value={selectedQuantity}
+                          onValueChange={setSelectedQuantity}
+                        >
+                          <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
+                            <SelectValue>
+                              <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                                {selectedQuantity
+                                  ? weightOptions.find(
+                                      (w) => w.value === selectedQuantity,
+                                    )?.label
+                                  : "Choose quantity"}
                               </span>
-                            )}
-                          </>
-                        )}
-                      </p>
-                    )}
-                  </div>
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            {weightOptions.map((weight) => (
+                              <SelectItem
+                                key={weight.value}
+                                value={weight.value}
+                              >
+                                {weight.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
 
-                  {/* Form Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-4 gap-6 items-end">
-                    {/* Product Selection */}
-                    <div>
-                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
-                        <Search className="w-3 h-3" />
-                        LOOKING FOR
-                      </span>
-                      <Select
-                        value={selectedProduct}
-                        onValueChange={setSelectedProduct}
-                      >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
-                          <SelectValue>
-                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
-                              {selectedProduct
-                                ? productCategories
-                                    .flatMap((cat) => cat.products)
-                                    .find(
-                                      (p) =>
-                                        p.id.toString() === selectedProduct,
-                                    )?.name
-                                : "Pick your meat"}
-                            </span>
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {productCategories.map((category) => (
-                            <div key={category.id}>
-                              {category.products.map((product) => (
-                                <SelectItem
-                                  key={product.id}
-                                  value={product.id.toString()}
-                                >
-                                  {product.name}
-                                </SelectItem>
-                              ))}
-                            </div>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                      {/* Time Slot Selection */}
+                      <div>
+                        <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
+                          <Clock className="w-3 h-3" />
+                          Time slot
+                        </span>
+                        <Select
+                          value={selectedTimeSlot}
+                          onValueChange={setSelectedTimeSlot}
+                        >
+                          <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
+                            <SelectValue>
+                              <span className="text-[rgba(248,227,201,0.4)] font-medium">
+                                {selectedTimeSlot || "Pick time slot"}
+                              </span>
+                            </SelectValue>
+                          </SelectTrigger>
+                          <SelectContent>
+                            {timeSlots.map((slot) => (
+                              <SelectItem key={slot.value} value={slot.value}>
+                                {slot.label}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
+
+                      {/* Order Button */}
+                      <div>
+                        <Button
+                          type="submit"
+                          className="w-full bg-[#F8E3C9] text-[#303132] font-bold text-sm uppercase hover:bg-[#F8E3C9]/90 transition-all duration-300 h-11 px-6"
+                        >
+                          Order now
+                        </Button>
+                      </div>
                     </div>
 
-                    {/* Quantity Selection */}
-                    <div>
-                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
-                        <Package className="w-3 h-3" />
-                        Quantity
-                      </span>
-                      <Select
-                        value={selectedQuantity}
-                        onValueChange={setSelectedQuantity}
+                    {/* Bulk Order Toggle */}
+                    <div className="mt-4 text-center">
+                      <button
+                        type="button"
+                        onClick={() => setShowBulkOrder(!showBulkOrder)}
+                        className="text-[#F8E3C9] text-sm hover:underline"
                       >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
-                          <SelectValue>
-                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
-                              {selectedQuantity
-                                ? weightOptions.find(
-                                    (w) => w.value === selectedQuantity,
-                                  )?.label
-                                : "Choose quantity"}
-                            </span>
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {weightOptions.map((weight) => (
-                            <SelectItem key={weight.value} value={weight.value}>
-                              {weight.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Time Slot Selection */}
-                    <div>
-                      <span className="flex items-center gap-1 text-white/60 text-xs font-semibold uppercase mb-2">
-                        <Clock className="w-3 h-3" />
-                        Time slot
-                      </span>
-                      <Select
-                        value={selectedTimeSlot}
-                        onValueChange={setSelectedTimeSlot}
-                      >
-                        <SelectTrigger className="h-11 bg-transparent border-none text-white font-bold rounded border-0">
-                          <SelectValue>
-                            <span className="text-[rgba(248,227,201,0.4)] font-medium">
-                              {selectedTimeSlot || "Pick time slot"}
-                            </span>
-                          </SelectValue>
-                        </SelectTrigger>
-                        <SelectContent>
-                          {timeSlots.map((slot) => (
-                            <SelectItem key={slot.value} value={slot.value}>
-                              {slot.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Order Button */}
-                    <div>
-                      <Button
-                        type="submit"
-                        className="w-full bg-[#F8E3C9] text-[#303132] font-bold text-sm uppercase hover:bg-[#F8E3C9]/90 transition-all duration-300 h-11 px-6"
-                      >
-                        Order now
-                      </Button>
+                        Need bulk quantities? Click here
+                      </button>
                     </div>
                   </div>
 
-                  {/* Bulk Order Toggle */}
-                  <div className="mt-4 text-center">
-                    <button
-                      type="button"
-                      onClick={() => setShowBulkOrder(!showBulkOrder)}
-                      className="text-[#F8E3C9] text-sm hover:underline"
-                    >
-                      Need bulk quantities? Click here
-                    </button>
-                  </div>
+                  {/* Bulk Order Form */}
+                  {showBulkOrder && <BulkOrderForm />}
                 </div>
-
-                {/* Bulk Order Form */}
-                {showBulkOrder && <BulkOrderForm />}
-              </div>
-            </form>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Google Maps Section */}
       <section className="bg-gray-50 py-16">
@@ -365,8 +381,8 @@ export const HeroSection = () => {
               Visit Our Store
             </h2>
             <p className="text-lg text-[#262729]/70 max-w-2xl mx-auto">
-              Located in the heart of Hommadevanahalli, Bangalore. We deliver fresh,
-              premium pork within a 5km radius.
+              Located in the heart of Hommadevanahalli, Bangalore. We deliver
+              fresh, premium pork within a 5km radius.
             </p>
           </div>
 
@@ -391,9 +407,12 @@ export const HeroSection = () => {
                     <Truck className="w-6 h-6 text-[#C72C41]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#262729] mb-2">Fast Delivery</h4>
+                    <h4 className="font-semibold text-[#262729] mb-2">
+                      Fast Delivery
+                    </h4>
                     <p className="text-[#262729]/70 text-sm">
-                      45-90 minute delivery within 5km radius from our Hommadevanahalli location.
+                      45-90 minute delivery within 5km radius from our
+                      Hommadevanahalli location.
                     </p>
                   </div>
                 </div>
@@ -403,9 +422,12 @@ export const HeroSection = () => {
                     <Shield className="w-6 h-6 text-[#C72C41]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#262729] mb-2">Quality Assured</h4>
+                    <h4 className="font-semibold text-[#262729] mb-2">
+                      Quality Assured
+                    </h4>
                     <p className="text-[#262729]/70 text-sm">
-                      100% fresh, antibiotic-free pork sourced from trusted local farmers.
+                      100% fresh, antibiotic-free pork sourced from trusted
+                      local farmers.
                     </p>
                   </div>
                 </div>
@@ -415,7 +437,9 @@ export const HeroSection = () => {
                     <Clock className="w-6 h-6 text-[#C72C41]" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-[#262729] mb-2">Extended Hours</h4>
+                    <h4 className="font-semibold text-[#262729] mb-2">
+                      Extended Hours
+                    </h4>
                     <p className="text-[#262729]/70 text-sm">
                       Open from 9:00 AM to 9:00 PM daily for your convenience.
                     </p>
@@ -424,9 +448,7 @@ export const HeroSection = () => {
               </div>
 
               {/* Delivery Zone Banner */}
-              {location && (
-                <DeliveryZoneBanner userLocation={location} />
-              )}
+              {location && <DeliveryZoneBanner userLocation={location} />}
             </div>
           </div>
         </div>
@@ -434,7 +456,6 @@ export const HeroSection = () => {
 
       {/* Floating Promotion Banner */}
       <FloatingPromoBanner />
-    </section>
     </>
   );
 };
