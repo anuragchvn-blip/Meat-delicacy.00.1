@@ -120,9 +120,17 @@ export const HeroSection = () => {
   );
 
   return (
-    <section className="relative bg-[#262729] min-h-[650px]">
-      {/* Background Image with Linear Gradient Overlay */}
-      <div className="absolute inset-0">
+    <>
+      {/* Marketing Banner at the top */}
+      <MarketingBanner />
+
+      <section className="relative bg-gradient-to-br from-[#262729] via-[#262729] to-[#3a3a3c] text-white min-h-screen flex items-center">
+        {/* Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-[#F8E3C9]/10 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-[#C72C41]/10 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-[#F8E3C9]/5 to-[#C72C41]/5 rounded-full blur-3xl"></div>
+        </div>
         <img
           src="https://meatdelicacy.com/wp-content/themes/meat-delicacy/assets/images/home/home-banner.webp"
           alt="banner figure"
@@ -348,6 +356,85 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Google Maps Section */}
+      <section className="bg-gray-50 py-16">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#262729] mb-4">
+              Visit Our Store
+            </h2>
+            <p className="text-lg text-[#262729]/70 max-w-2xl mx-auto">
+              Located in the heart of Hommadevanahalli, Bangalore. We deliver fresh,
+              premium pork within a 5km radius.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+            <div>
+              <GoogleMap
+                height="500px"
+                showDirections={true}
+                showStoreInfo={true}
+                className="rounded-lg overflow-hidden"
+              />
+            </div>
+
+            <div className="space-y-6">
+              <h3 className="text-2xl font-bold text-[#262729] mb-6">
+                Why Choose Our Location?
+              </h3>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#C72C41]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Truck className="w-6 h-6 text-[#C72C41]" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#262729] mb-2">Fast Delivery</h4>
+                    <p className="text-[#262729]/70 text-sm">
+                      45-90 minute delivery within 5km radius from our Hommadevanahalli location.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#C72C41]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Shield className="w-6 h-6 text-[#C72C41]" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#262729] mb-2">Quality Assured</h4>
+                    <p className="text-[#262729]/70 text-sm">
+                      100% fresh, antibiotic-free pork sourced from trusted local farmers.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 p-4 bg-white rounded-lg shadow-sm">
+                  <div className="w-12 h-12 bg-[#C72C41]/10 rounded-full flex items-center justify-center flex-shrink-0">
+                    <Clock className="w-6 h-6 text-[#C72C41]" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-[#262729] mb-2">Extended Hours</h4>
+                    <p className="text-[#262729]/70 text-sm">
+                      Open from 9:00 AM to 9:00 PM daily for your convenience.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Delivery Zone Banner */}
+              {location && (
+                <DeliveryZoneBanner userLocation={location} />
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Floating Promotion Banner */}
+      <FloatingPromoBanner />
     </section>
+    </>
   );
 };
