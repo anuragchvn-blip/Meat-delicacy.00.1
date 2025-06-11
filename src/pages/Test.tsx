@@ -277,7 +277,22 @@ const Test = () => {
           </Card>
         </div>
 
-        {/* Live Google Maps Section Demo */}
+        {/* Safe Maps Section Demo (No DOM Conflicts) */}
+        <Card>
+          <CardContent className="p-8">
+            <h2 className="text-3xl font-bold text-[#262729] mb-6 flex items-center gap-3">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+              Safe Map Implementation
+            </h2>
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg mb-6">
+              <p className="text-green-800 font-semibold">
+                ✅ DOM Error Fixed: Now using safe, static map component without
+                external script conflicts
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
         <GoogleMapsSection />
       </div>
 
