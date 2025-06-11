@@ -11,6 +11,7 @@ import { SEO } from "../components/SEO";
 const Index = () => {
   return (
     <div className="min-h-screen bg-[#262729]">
+      <SEO />
       <Navigation />
       <main className="pt-[80px]">
         <HeroSection />
