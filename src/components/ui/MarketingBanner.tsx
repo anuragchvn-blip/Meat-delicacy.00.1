@@ -57,13 +57,13 @@ export const MarketingBanner: React.FC<MarketingBannerProps> = ({
 
   // Auto-rotate banners every 5 seconds
   useEffect(() => {
-    if (banners.length > 1) {
+    if (banners.length > 1 && isVisible) {
       const interval = setInterval(() => {
         setCurrentBanner((prev) => (prev + 1) % banners.length);
       }, 5000);
       return () => clearInterval(interval);
     }
-  }, [banners.length]);
+  }, [banners.length, isVisible]);
 
   const currentBannerData = banners[currentBanner];
 
@@ -159,7 +159,9 @@ export const FloatingPromoBanner: React.FC = () => {
       setIsVisible(true);
     }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+    };
   }, []);
 
   if (!isVisible) return null;
