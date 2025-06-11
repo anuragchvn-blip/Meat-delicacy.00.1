@@ -5,6 +5,7 @@ import { BestsellersSection } from "../components/sections/BestsellersSection";
 import { AnatomySection } from "../components/sections/AnatomySection";
 import { BlogSection } from "../components/sections/BlogSection";
 import { TestimonialsSection } from "../components/sections/TestimonialsSection";
+import { GoogleMapsSection } from "../components/sections/GoogleMapsSection";
 import { Footer } from "../components/ui/Footer";
 import { SEO } from "../components/SEO";
 
@@ -16,10 +17,13 @@ const Index = () => {
       <main className="pt-[80px]">
         <HeroSection />
         <ProductsSection />
-      <BestsellersSection />
-      <TestimonialsSection />
-      <BlogSection />
-      <GoogleMapsSection />
+        <AnatomySection />
+        <BestsellersSection />
+        <TestimonialsSection />
+        <BlogSection />
+        <GoogleMapsSection />
+      </main>
+      <Footer />
     </div>
   );
 };
