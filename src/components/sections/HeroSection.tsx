@@ -18,7 +18,7 @@ export const HeroSection = () => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [showBulkOrder, setShowBulkOrder] = useState(false);
   const { addToCart } = useCart();
-  const { location, isWithinRadius } = useLocation();
+  const { location, isWithinRadius, getDeliveryInfo, loading } = useLocation();
 
   // Weight options in grams
   const weightOptions = [
