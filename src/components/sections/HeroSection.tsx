@@ -11,6 +11,8 @@ import {
   DeliveryZoneBanner,
 } from "../ui/MarketingBanner";
 import { GoogleMap } from "../ui/GoogleMap";
+import { StaticMap } from "../ui/StaticMap";
+import { ErrorBoundary } from "../ui/ErrorBoundary";
 import {
   Select,
   SelectContent,
@@ -388,12 +390,23 @@ export const HeroSection = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
             <div>
-              <GoogleMap
-                height="500px"
-                showDirections={true}
-                showStoreInfo={true}
-                className="rounded-lg overflow-hidden"
-              />
+              <ErrorBoundary
+                fallback={
+                  <StaticMap
+                    height="500px"
+                    showDirections={true}
+                    showStoreInfo={true}
+                    className="rounded-lg overflow-hidden"
+                  />
+                }
+              >
+                <GoogleMap
+                  height="500px"
+                  showDirections={true}
+                  showStoreInfo={true}
+                  className="rounded-lg overflow-hidden"
+                />
+              </ErrorBoundary>
             </div>
 
             <div className="space-y-6">
