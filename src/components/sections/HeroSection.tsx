@@ -184,9 +184,37 @@ export const HeroSection = () => {
                 <div className="bg-[rgba(199,44,65,0.5)] backdrop-blur-[12px] border border-[rgba(199,44,65,0.64)] p-6 relative z-10 rounded-lg">
                   {/* Delivery Info Banner */}
                   <div className="mb-4 text-center">
-                    <p className="text-[#F8E3C9] text-sm font-semibold">
-                      🚀 90-minute delivery within 5km radius
-                    </p>
+                    {loading ? (
+                      <p className="text-[#F8E3C9] text-sm font-semibold">
+                        📍 Detecting your location...
+                      </p>
+                    ) : (
+                      <p className="text-[#F8E3C9] text-sm font-semibold">
+                        {isWithinRadius ? (
+                          <>
+                            🚀 {getDeliveryInfo().estimatedTime} delivery
+                            {location.distanceFromStore && (
+                              <span className="text-white/70">
+                                {" "}
+                                ({getDeliveryInfo().distance} from
+                                Hommadevanahalli)
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            📍 90-minute delivery within 5km radius from
+                            Hommadevanahalli
+                            {location.distanceFromStore && (
+                              <span className="text-yellow-400">
+                                {" "}
+                                (You're {getDeliveryInfo().distance} away)
+                              </span>
+                            )}
+                          </>
+                        )}
+                      </p>
+                    )}
                   </div>
 
                   {/* Form Grid */}
