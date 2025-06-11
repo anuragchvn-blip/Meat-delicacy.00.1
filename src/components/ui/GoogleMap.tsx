@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { MapPin, Clock, Phone, Navigation } from "lucide-react";
 import { Button } from "./button";
 import { Card, CardContent } from "./card";
@@ -26,31 +26,40 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
   className = "",
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<any>(null);
+  const markersRef = useRef<any[]>([]);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const [mapError, setMapError] = useState<string | null>(null);
   const [userLocation, setUserLocation] = useState<{
     lat: number;
     lng: number;
   } | null>(null);
 
-  useEffect(() => {
-    // Load Google Maps script
-    const loadGoogleMaps = () => {
-      if (window.google && window.google.maps) {
-        initializeMap();
-        return;
+  // Cleanup function
+  const cleanup = useCallback(() => {
+    try {
+      // Clear markers
+      markersRef.current.forEach((marker) => {
+        if (marker && marker.setMap) {
+          marker.setMap(null);
+        }
+      });
+      markersRef.current = [];
+
+      // Clear map instance
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current = null;
       }
+    } catch (error) {
+      console.warn("Map cleanup error:", error);
+    }
+  }, []);
 
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "YOUR_API_KEY"}&libraries=places`;
-      script.async = true;
-      script.defer = true;
-      script.onload = initializeMap;
-      document.head.appendChild(script);
-    };
+  // Initialize map function
+  const initializeMap = useCallback(() => {
+    if (!mapRef.current || !window.google || mapInstanceRef.current) return;
 
-    const initializeMap = () => {
-      if (!mapRef.current || !window.google) return;
-
+    try {
       const map = new window.google.maps.Map(mapRef.current, {
         center: STORE_LOCATION,
         zoom: 15,
@@ -62,6 +71,8 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
           },
         ],
       });
+
+      mapInstanceRef.current = map;
 
       // Store marker
       const storeMarker = new window.google.maps.Marker({
@@ -81,6 +92,8 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
           anchor: new window.google.maps.Point(20, 20),
         },
       });
+
+      markersRef.current.push(storeMarker);
 
       // Store info window
       const storeInfoWindow = new window.google.maps.InfoWindow({
@@ -120,7 +133,7 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
             setUserLocation(userPos);
 
             // User marker
-            new window.google.maps.Marker({
+            const userMarker = new window.google.maps.Marker({
               position: userPos,
               map: map,
               title: "Your Location",
@@ -138,6 +151,8 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
               },
             });
 
+            markersRef.current.push(userMarker);
+
             // Adjust map bounds to show both markers
             const bounds = new window.google.maps.LatLngBounds();
             bounds.extend(STORE_LOCATION);
@@ -145,16 +160,56 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
             map.fitBounds(bounds);
           },
           (error) => {
-            console.log("Geolocation error:", error);
+            console.warn("Geolocation error:", error);
           },
         );
       }
 
       setMapLoaded(true);
-    };
-
-    loadGoogleMaps();
+    } catch (error) {
+      console.error("Error initializing map:", error);
+      setMapError("Failed to load map");
+    }
   }, []);
+
+  // Load Google Maps script
+  const loadGoogleMaps = useCallback(() => {
+    try {
+      if (window.google && window.google.maps) {
+        initializeMap();
+        return;
+      }
+
+      // Check if script is already loading
+      const existingScript = document.querySelector(
+        'script[src*="maps.googleapis.com"]',
+      );
+      if (existingScript) {
+        existingScript.addEventListener("load", initializeMap);
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${import.meta.env.VITE_GOOGLE_MAPS_API_KEY || "YOUR_API_KEY"}&libraries=places`;
+      script.async = true;
+      script.defer = true;
+      script.onload = initializeMap;
+      script.onerror = () => {
+        setMapError("Failed to load Google Maps");
+      };
+      document.head.appendChild(script);
+    } catch (error) {
+      console.error("Error loading Google Maps:", error);
+      setMapError("Failed to load Google Maps");
+    }
+  }, [initializeMap]);
+
+  useEffect(() => {
+    loadGoogleMaps();
+
+    // Cleanup on unmount
+    return cleanup;
+  }, [loadGoogleMaps, cleanup]);
 
   const openDirections = () => {
     const url = `https://www.google.com/maps/dir/?api=1&destination=${STORE_LOCATION.lat},${STORE_LOCATION.lng}&travelmode=driving`;
@@ -229,17 +284,38 @@ export const GoogleMap: React.FC<GoogleMapProps> = ({
       {/* Map Container */}
       <div className="relative rounded-lg overflow-hidden shadow-lg">
         <div ref={mapRef} style={{ height }} className="w-full bg-gray-200">
-          {!mapLoaded && (
+          {mapError ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center p-8">
+                <MapPin className="w-12 h-12 text-[#C72C41] mx-auto mb-4" />
+                <p className="text-[#262729] font-semibold mb-2">
+                  Map Unavailable
+                </p>
+                <p className="text-[#262729]/60 text-sm mb-4">
+                  {mapError}. You can still get directions using the buttons
+                  above.
+                </p>
+                <Button
+                  onClick={openDirections}
+                  size="sm"
+                  className="bg-[#C72C41] text-white hover:bg-[#C72C41]/90"
+                >
+                  <Navigation className="w-4 h-4 mr-1" />
+                  Get Directions
+                </Button>
+              </div>
+            </div>
+          ) : !mapLoaded ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
                 <div className="w-8 h-8 border-2 border-[#C72C41] border-t-transparent rounded-full animate-spin mx-auto mb-2"></div>
                 <p className="text-[#262729]/60 text-sm">Loading map...</p>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
 
-        {mapLoaded && (
+        {mapLoaded && !mapError && (
           <div className="absolute bottom-4 right-4">
             <Button
               onClick={openDirections}
