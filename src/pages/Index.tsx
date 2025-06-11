@@ -6,6 +6,7 @@ import { AnatomySection } from "../components/sections/AnatomySection";
 import { BlogSection } from "../components/sections/BlogSection";
 import { TestimonialsSection } from "../components/sections/TestimonialsSection";
 import { Footer } from "../components/ui/Footer";
+import { SEO } from "../components/SEO";
 
 const Index = () => {
   return (
